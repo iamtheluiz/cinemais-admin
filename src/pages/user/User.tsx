@@ -1,31 +1,47 @@
 import { useEffect, useState } from "react"
 import Swal from 'sweetalert2'
+import ReactPaginate from 'react-paginate';
 
 import { MdChevronLeft, MdChevronRight, MdDelete, MdEdit } from "react-icons/md";
 
-import { useAuth } from "../contexts/AuthContext"
-import { api } from "../services/api"
+import { useAuth } from "../../contexts/AuthContext"
+import { api } from "../../services/api"
+import { useNavigate } from "react-router-dom";
 
 
 function User() {
   const [users, setUsers] = useState([])
-  const { token } = useAuth()
+  const [pageCount, setPageCount] = useState(1)
+  const [currentPage, setCurrentPage] = useState(1);
+  const navigate = useNavigate();
+  const { token } = useAuth();
+
+  const pageSize = 10;
 
   useEffect(() => {
     if (token) {
       getUsers()
     }
-  }, [token])
+  }, [token, currentPage])
 
   async function getUsers() {
     const { data } = await api.get('/user', {
       headers: {
         Authorization: token
+      },
+      params: {
+        page: currentPage,
+        size: pageSize
       }
     })
 
+    setPageCount(data.pagination.totalCount / pageSize)
     setUsers(data.data)
   }
+
+  const handlePageClick = (event: any) => {
+    setCurrentPage(event.selected + 1);
+  };
 
   async function handleDeleteUser(user: any) {
     const result = await Swal.fire({
@@ -59,7 +75,6 @@ function User() {
         })
       }
     }
-
   }
 
   return (
@@ -68,7 +83,10 @@ function User() {
         <h1 className="font-bold text-3xl justify-center items-center">
           Usuários
         </h1>
-        <button className="rounded group flex h-10 cursor-pointer items-center truncate py-4 px-6 bg-amber-500 text-white outline-none hover:bg-amber-600 active:bg-amber-700">
+        <button
+          className="rounded group flex h-10 cursor-pointer items-center truncate py-4 px-6 bg-amber-500 text-white outline-none hover:bg-amber-600 active:bg-amber-700"
+          onClick={() => navigate('/user/create')}
+        >
           Criar
         </button>
       </div>
@@ -124,7 +142,24 @@ function User() {
       </div>
       <div className="flex justify-end mt-4">
         <nav aria-label="Page navigation example">
-          <ul className="flex list-style-none">
+        <ReactPaginate
+          breakLabel="..."
+          nextLabel={<button
+            className="page-link relative block py-1.5 px-1.5 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
+            ><MdChevronRight size={24} /></button>}
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={5}
+          pageCount={pageCount}
+          previousLabel={<button
+            className="page-link relative block py-1.5 px-1.5 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
+            ><MdChevronLeft size={24} /></button>}
+          pageLabelBuilder={(page) => <a
+            className={`page-link relative block py-1.5 px-3 rounded border-0 outline-none transition-all duration-300 rounded focus:shadow-none ${page === currentPage ? "bg-rose-800 text-white hover:text-white hover:bg-rose-900" : "bg-transparent text-gray-800 hover:text-gray-800 hover:bg-gray-200"}`}
+            href={`?page=${page}`}>{page}</a>}
+          renderOnZeroPageCount={null}
+          containerClassName="flex list-style-none"
+        />
+          {/* <ul className="flex list-style-none">
             <li className="page-item"><a
               className="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
               href="#"><MdChevronLeft size={24} /></a></li>
@@ -140,7 +175,7 @@ function User() {
             <li className="page-item"><a
               className="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
               href="#"><MdChevronRight size={24} /></a></li>
-          </ul>
+          </ul> */}
         </nav>
       </div>
     </>
