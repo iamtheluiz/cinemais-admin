@@ -103,6 +103,11 @@ function User() {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100 border-t border-gray-100">
+            {users.length === 0 && (
+              <tr>
+                <td colSpan={6} className="px-6 py-4 font-medium text-gray-900">Não existem usuários cadastrados!</td>
+              </tr>
+            )}
             {users.map((user: any) => (
               <tr className="hover:bg-gray-50" key={user.id}>
                 <th className="flex gap-3 px-6 py-4 font-normal text-gray-900">

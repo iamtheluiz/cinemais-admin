@@ -1,9 +1,10 @@
-import { cloneElement, ReactNode } from "react";
+import { ReactNode } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+import { BiCameraMovie } from "react-icons/bi";
 import { GiPopcorn } from "react-icons/gi";
 import { TiHome } from "react-icons/ti";
-import { FaUserCircle } from "react-icons/fa";
+import { FaCity, FaUserCircle, FaMap } from "react-icons/fa";
 import { MdOutlineLogout } from "react-icons/md";
 
 import { useAuth } from "../contexts/AuthContext";
@@ -43,6 +44,18 @@ const SideMenu: React.FC = () => {
         <SideMenuItem to="/user">
           <FaUserCircle size={24} />
           <span className="ml-2">Usuários</span>
+        </SideMenuItem>
+        <SideMenuItem to="/cine">
+          <BiCameraMovie size={24} />
+          <span className="ml-2">Cinemas</span>
+        </SideMenuItem>
+        <SideMenuItem to="/city">
+          <FaCity size={24} />
+          <span className="ml-2">Cidades</span>
+        </SideMenuItem>
+        <SideMenuItem to="/region">
+          <FaMap size={24} />
+          <span className="ml-2">Regiões</span>
         </SideMenuItem>
         <SideMenuItem to="/logout" onClick={(event: any) => {
           event.preventDefault()

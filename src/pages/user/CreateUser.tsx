@@ -111,7 +111,7 @@ function CreateUser() {
                   type="text"
                   name="FirstName"
                   id="FirstName"
-                  placeholder="Ex: Luiza"
+                  placeholder="Ex: João"
                   required
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                 />
@@ -150,8 +150,8 @@ function CreateUser() {
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                 >
                   <option value="" disabled selected>Selecione um Perfil</option>
-                  <option value="admin">Administrador</option>
-                  <option value="client">Cliente</option>
+                  <option value="Admin">Administrador</option>
+                  <option value="Client">Cliente</option>
                 </select>
               </div>
             </div>
@@ -167,7 +167,7 @@ function CreateUser() {
                   type="email"
                   name="Email"
                   id="Email"
-                  placeholder="Ex: luiza.alves@mail.com"
+                  placeholder="Ex: joao.alves@mail.com"
                   required
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                 />
