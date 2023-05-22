@@ -1,24 +1,25 @@
 import { useEffect, useState } from "react"
 import { useAuth } from "../contexts/AuthContext"
 import { api } from "../services/api"
+import { Link } from "react-router-dom"
 
 function Home() {
-  const [users, setUsers] = useState([])
+  const [dashboard, setDashboard] = useState<any>()
   const { token } = useAuth()
 
   useEffect(() => {
-    async function getUsers() {
-      const { data } = await api.get('/user', {
+    async function getDashboards() {
+      const { data } = await api.get('/home/dashboard', {
         headers: {
           Authorization: token
         }
       })
 
-      setUsers(data.data)
+      setDashboard(data.data)
     }
 
     if (token) {
-      getUsers()
+      getDashboards()
     }
   }, [token])
 
@@ -28,32 +29,28 @@ function Home() {
         Página Inicial
       </h1>
       <div className="flex flex-col overflow-x-auto">
-        <div className="sm:-mx-6 lg:-mx-8">
-          <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-            <div className="overflow-x-auto">
-              <table className="min-w-full text-left text-sm font-light">
-                <thead className="border-b font-medium dark:border-neutral-500">
-                  <tr>
-                    <th scope="col" className="px-6 py-4">#</th>
-                    <th scope="col" className="px-6 py-4">Primeiro Nome</th>
-                    <th scope="col" className="px-6 py-4">Último Nome</th>
-                    <th scope="col" className="px-6 py-4">E-mail</th>
-                    <th scope="col" className="px-6 py-4">Perfil</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {users.map((user: any) => (
-                    <tr className="border-b dark:border-neutral-500" key={user.id}>
-                      <td className="whitespace-nowrap px-6 py-4 font-medium">{user.id}</td>
-                      <td className="whitespace-nowrap px-6 py-4">{user.firstName}</td>
-                      <td className="whitespace-nowrap px-6 py-4">{user.lastName}</td>
-                      <td className="whitespace-nowrap px-6 py-4">{user.email}</td>
-                      <td className="whitespace-nowrap px-6 py-4">{user.role}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+        <div className="bg-white py-4">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <dl className="grid grid-cols-1 gap-x-8 gap-y-16 text-center lg:grid-cols-4">
+              <Link to="/user">
+                <div className="mx-auto flex w-full flex-col gap-y-4 p-4 bg-emerald-500 rounded">
+                  <dt className="text-base leading-7 text-gray-100">Usuários</dt>
+                  <dd className="order-first text-3xl font-semibold tracking-tight text-white sm:text-5xl">{dashboard?.userCount}</dd>
+                </div>
+              </Link>
+              <Link to="/movie">
+                <div className="mx-auto flex w-full flex-col gap-y-4 p-4 bg-sky-500 rounded">
+                  <dt className="text-base leading-7 text-gray-100">Filmes</dt>
+                  <dd className="order-first text-3xl font-semibold tracking-tight text-white sm:text-5xl">{dashboard?.movieCount}</dd>
+                </div>
+              </Link>
+              <Link to="/cine">
+                <div className="mx-auto flex w-full flex-col gap-y-4 p-4 bg-violet-500 rounded">
+                  <dt className="text-base leading-7 text-gray-100">Cinemas</dt>
+                  <dd className="order-first text-3xl font-semibold tracking-tight text-white sm:text-5xl">{dashboard?.cineCount}</dd>
+                </div>
+              </Link>
+            </dl>
           </div>
         </div>
       </div>

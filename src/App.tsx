@@ -11,6 +11,8 @@ import CreateCity from "./pages/City/CreateCity";
 import City from "./pages/City/City";
 import Region from "./pages/Region/Region";
 import CreateRegion from "./pages/Region/CreateRegion";
+import CreateMovie from "./pages/Movie/CreateMovie";
+import Movie from "./pages/Movie/Movie";
 
 function App() {
   return (
@@ -26,6 +28,8 @@ function App() {
         <Route path="city" element={<City />} />
         <Route path="region/create" element={<CreateRegion />} />
         <Route path="region" element={<Region />} />
+        <Route path="movie/create" element={<CreateMovie />} />
+        <Route path="movie" element={<Movie />} />
       </Route>
       {/* <Route path="*" element={<NotFound />} /> */}
     </Routes>

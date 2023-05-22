@@ -68,7 +68,7 @@ function Region() {
         Swal.fire({
           icon: 'success',
           title: 'Sucesso!',
-          html: `Região ${region.email} excluída!`
+          html: `Região ${region.name} excluída!`
         })
 
         await getRegions()

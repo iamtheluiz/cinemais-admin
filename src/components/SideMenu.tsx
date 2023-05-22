@@ -45,6 +45,10 @@ const SideMenu: React.FC = () => {
           <FaUserCircle size={24} />
           <span className="ml-2">Usuários</span>
         </SideMenuItem>
+        <SideMenuItem to="/movie">
+          <BiCameraMovie size={24} />
+          <span className="ml-2">Filmes</span>
+        </SideMenuItem>
         <SideMenuItem to="/cine">
           <BiCameraMovie size={24} />
           <span className="ml-2">Cinemas</span>
