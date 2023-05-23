@@ -58,6 +58,9 @@ function CreateCity() {
     const { data } = await api.get('/region', {
       headers: {
         Authorization: token
+      },
+      params: {
+        all: true
       }
     })
 
@@ -197,7 +200,7 @@ function CreateCity() {
                 >
                   Regiões
                 </label>
-                <ul className="flex flex-row items-center gap-2 mb-2">
+                <ul className="flex flex-row flex-wrap items-center gap-2 mb-2">
                   {selectedRegions.map(region => (
                     <li className="flex flex-row items-center gap-1 bg-rose-800 px-2 py-1 rounded text-white">
                       {region.name}

@@ -31,7 +31,7 @@ function Home() {
       <div className="flex flex-col overflow-x-auto">
         <div className="bg-white py-4">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <dl className="grid grid-cols-1 gap-x-8 gap-y-16 text-center lg:grid-cols-4">
+            <dl className="grid grid-cols-1 gap-x-8 gap-y-8 text-center lg:grid-cols-4">
               <Link to="/user">
                 <div className="mx-auto flex w-full flex-col gap-y-4 p-4 bg-emerald-500 rounded">
                   <dt className="text-base leading-7 text-gray-100">Usuários</dt>
@@ -48,6 +48,30 @@ function Home() {
                 <div className="mx-auto flex w-full flex-col gap-y-4 p-4 bg-violet-500 rounded">
                   <dt className="text-base leading-7 text-gray-100">Cinemas</dt>
                   <dd className="order-first text-3xl font-semibold tracking-tight text-white sm:text-5xl">{dashboard?.cineCount}</dd>
+                </div>
+              </Link>
+              <Link to="/genre">
+                <div className="mx-auto flex w-full flex-col gap-y-4 p-4 bg-orange-500 rounded">
+                  <dt className="text-base leading-7 text-gray-100">Gêneros</dt>
+                  <dd className="order-first text-3xl font-semibold tracking-tight text-white sm:text-5xl">{dashboard?.genreCount}</dd>
+                </div>
+              </Link>
+              <Link to="/cast">
+                <div className="mx-auto flex w-full flex-col gap-y-4 p-4 bg-purple-500 rounded">
+                  <dt className="text-base leading-7 text-gray-100">Atores</dt>
+                  <dd className="order-first text-3xl font-semibold tracking-tight text-white sm:text-5xl">{dashboard?.castCount}</dd>
+                </div>
+              </Link>
+              <Link to="/city">
+                <div className="mx-auto flex w-full flex-col gap-y-4 p-4 bg-fuchsia-500 rounded">
+                  <dt className="text-base leading-7 text-gray-100">Cidades</dt>
+                  <dd className="order-first text-3xl font-semibold tracking-tight text-white sm:text-5xl">{dashboard?.cityCount}</dd>
+                </div>
+              </Link>
+              <Link to="/region">
+                <div className="mx-auto flex w-full flex-col gap-y-4 p-4 bg-rose-500 rounded">
+                  <dt className="text-base leading-7 text-gray-100">Regiões</dt>
+                  <dd className="order-first text-3xl font-semibold tracking-tight text-white sm:text-5xl">{dashboard?.regionCount}</dd>
                 </div>
               </Link>
             </dl>

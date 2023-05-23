@@ -9,8 +9,8 @@ import { api } from "../../services/api"
 import { useNavigate } from "react-router-dom";
 
 
-function Movie() {
-  const [movies, setMovies] = useState([])
+function Cast() {
+  const [casts, setCasts] = useState([])
   const [pageCount, setPageCount] = useState(1)
   const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
@@ -20,21 +20,12 @@ function Movie() {
 
   useEffect(() => {
     if (token) {
-      getCines()
+      getCasts()
     }
   }, [token, currentPage])
 
-  function getDurationInHours(durationInMinutes: string) {
-    let totalTimeInMinutes = parseInt(durationInMinutes);
-    
-    const hours = Math.floor(totalTimeInMinutes / 60);
-    const minutes = totalTimeInMinutes % 60;
-
-    return `${hours}h ${minutes}m`;
-  }
-
-  async function getCines() {
-    const { data } = await api.get('/movie', {
+  async function getCasts() {
+    const { data } = await api.get('/cast', {
       headers: {
         Authorization: token
       },
@@ -45,16 +36,16 @@ function Movie() {
     })
 
     setPageCount(data.pagination.totalCount / pageSize)
-    setMovies(data.data)
+    setCasts(data.data)
   }
 
   const handlePageClick = (event: any) => {
     setCurrentPage(event.selected + 1);
   };
 
-  async function handleDeleteMovie(movie: any) {
+  async function handleDeleteCast(cast: any) {
     const result = await Swal.fire({
-      title: `Você realmente deseja excluir o filme ${movie.name}?`,
+      title: `Você realmente deseja excluir o ator(a) ${cast.name}?`,
       showCancelButton: true,
       confirmButtonText: 'Deletar',
       cancelButtonText: 'Cancelar',
@@ -63,7 +54,7 @@ function Movie() {
 
     if (result.isConfirmed) {
       try {
-        await api.delete(`/movie/${movie.id}`, {
+        await api.delete(`/cast/${cast.id}`, {
           headers: {
             Authorization: token
           }
@@ -72,15 +63,15 @@ function Movie() {
         Swal.fire({
           icon: 'success',
           title: 'Sucesso!',
-          html: `Filme ${movie.name} excluído!`
+          html: `Ator(a) ${cast.name} excluído!`
         })
 
-        await getCines()
+        await getCasts()
       } catch (error) {
         Swal.fire({
           icon: 'error',
           title: 'Erro!',
-          html: `Não foi possível excluir o filme ${movie.name}.`
+          html: `Não foi possível excluir o ator(a) ${cast.name}.`
         })
       }
     }
@@ -90,11 +81,11 @@ function Movie() {
     <>
       <div className="flex flex-row items-center justify-between mb-5">
         <h1 className="font-bold text-3xl justify-center items-center">
-          Filmes
+          Atores
         </h1>
         <button
           className="rounded group flex h-10 cursor-pointer items-center truncate py-4 px-6 bg-amber-500 text-white outline-none hover:bg-amber-600 active:bg-amber-700"
-          onClick={() => navigate('/movie/create')}
+          onClick={() => navigate('/cast/create')}
         >
           Criar
         </button>
@@ -104,45 +95,30 @@ function Movie() {
           <thead className="bg-gray-50">
             <tr>
               <th scope="col" className="px-6 py-4 font-medium text-gray-900">Nome</th>
-              <th scope="col" className="px-6 py-4 font-medium text-gray-900">Capa</th>
-              <th scope="col" className="px-6 py-4 font-medium text-gray-900">Sinopse</th>
-              <th scope="col" className="px-6 py-4 font-medium text-gray-900">Gêneros</th>
-              <th scope="col" className="px-6 py-4 font-medium text-gray-900">Trailer</th>
-              <th scope="col" className="px-6 py-4 font-medium text-gray-900">Duração</th>
+              <th scope="col" className="px-6 py-4 font-medium text-gray-900">Foto</th>
+              <th scope="col" className="px-6 py-4 font-medium text-gray-900">Biografia</th>
               <th scope="col" className="px-6 py-4 font-medium text-gray-900"></th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100 border-t border-gray-100">
-            {movies.length === 0 && (
+            {casts.length === 0 && (
               <tr>
-                <td colSpan={6} className="px-6 py-4 font-medium text-gray-900">Não existem filmes cadastrados!</td>
+                <td colSpan={6} className="px-6 py-4 font-medium text-gray-900">Não existem atores cadastrados!</td>
               </tr>
             )}
-            {movies.map((movie: any) => (
-              <tr className="hover:bg-gray-50" key={movie.id}>
-                <td className="px-6 py-4">{movie.name}</td>
+            {casts.map((cast: any) => (
+              <tr className="hover:bg-gray-50" key={cast.id}>
+                <td className="px-6 py-4">{cast.name}</td>
                 <td className="px-6 py-4">
-                  <img className="w-16 h-auto rounded" src={movie.cover} alt="Cover" />
+                  <img className="h-auto w-16 rounded" src={cast.picture} alt="Foto" />
                 </td>
-                <td className="px-6 py-4">{movie.synopsis}</td>
-                <td className="px-6 py-4">{movie.genres.map((genre: any) => (
-                  <span
-                    className="inline-flex items-center flex-wrap gap-1 rounded-full bg-rose-50 px-2 py-1 text-xs font-semibold text-rose-600"
-                  >
-                    <span className="h-1.5 w-1.5 rounded-full bg-rose-600"></span>
-                    {genre.name}
-                  </span>
-                ))}</td>
-                <td className="px-6 py-4">
-                  <iframe src={movie.trailer} />
-                </td>
-                <td className="px-6 py-4">{getDurationInHours(movie.duration)}</td>
+                <td className="px-6 py-4">{cast.bio}</td>
                 <td className="px-6 py-4">
                   <div className="flex justify-end gap-4">
                     <a x-data="{ tooltip: 'Edite' }" href="#">
                       <MdEdit size={24} />
                     </a>
-                    <a href="#delete" onClick={() => handleDeleteMovie(movie)}>
+                    <a href="#delete" onClick={() => handleDeleteCast(cast)}>
                       <MdDelete size={24} />
                     </a>
                   </div>
@@ -177,4 +153,4 @@ function Movie() {
   )
 }
 
-export default Movie
+export default Cast

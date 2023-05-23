@@ -1,13 +1,84 @@
+import { useState, useEffect, ChangeEvent } from 'react';
 import Swal from 'sweetalert2'
 import { useNavigate } from "react-router-dom";
 
 import { useAuth } from "../../contexts/AuthContext"
 import { api } from "../../services/api"
+import { IoMdCloseCircle } from 'react-icons/io';
 
 
 function CreateMovie() {
   const { token } = useAuth()
   const navigate = useNavigate();
+
+  const [genres, setGenres] = useState<{ id: number, name: string }[]>([])
+  const [selectedGenres, setSelectedGenres] = useState<{ id: number, name: string }[]>([])
+
+  const [casts, setCasts] = useState<{ id: number, name: string, picture: string }[]>([])
+  const [selectedCasts, setSelectedCasts] = useState<{ id: number, name: string, picture: string }[]>([])
+
+  useEffect(() => {
+    getGenres();
+    getCasts();
+  }, [])
+
+  async function getGenres() {
+    const { data } = await api.get('/genre', {
+      headers: {
+        Authorization: token
+      },
+      params: {
+        all: true
+      }
+    })
+
+    setGenres(data.data)
+  }
+
+  function handleSelectGenre(event: ChangeEvent<HTMLSelectElement>) {
+    if (event.target.value !== "") {
+      const genreId = parseInt(event.target.value);
+      const selectedGenre = genres.filter(genre => genre.id === genreId)[0];
+
+      setSelectedGenres([...selectedGenres, selectedGenre])
+      event.target.value = "";
+    }
+  }
+
+  function handleUnselectGenre(unselectedGenre: { id: number, name: string }) {
+    const serializedSelectedGenres = selectedGenres.filter(genre => genre.id !== unselectedGenre.id);
+
+    setSelectedGenres([...serializedSelectedGenres])
+  }
+
+  async function getCasts() {
+    const { data } = await api.get('/cast', {
+      headers: {
+        Authorization: token
+      },
+      params: {
+        all: true
+      }
+    })
+
+    setCasts(data.data)
+  }
+
+  function handleSelectCast(event: ChangeEvent<HTMLSelectElement>) {
+    if (event.target.value !== "") {
+      const castId = parseInt(event.target.value);
+      const selectedCast = casts.filter(cast => cast.id === castId)[0];
+
+      setSelectedCasts([...selectedCasts, selectedCast])
+      event.target.value = "";
+    }
+  }
+
+  function handleUnselectCast(unselectedCast: { id: number, name: string }) {
+    const serializedSelectedCasts = selectedCasts.filter(cast => cast.id !== unselectedCast.id);
+
+    setSelectedCasts([...serializedSelectedCasts])
+  }
 
   async function handleSubmit(event: any) {
     event.preventDefault();
@@ -24,9 +95,9 @@ function CreateMovie() {
       trailer,
       cover,
       duration,
-      genres: [],
+      genres: selectedGenres,
       sessions: [],
-      cast: []
+      cast: selectedCasts
     }, {
       headers: {
         Authorization: token
@@ -79,6 +150,35 @@ function CreateMovie() {
             <div className="w-full">
               <div className="mb-5">
                 <label
+                  htmlFor="Genres"
+                  className="mb-3 block text-base font-medium text-[#07074D]"
+                >
+                  Gêneros
+                </label>
+                <ul className="flex flex-row flex-wrap items-center gap-2 mb-2">
+                  {selectedGenres.map(genre => (
+                    <li className="flex flex-row items-center gap-1 bg-rose-800 px-2 py-1 rounded text-white">
+                      {genre.name}
+                      <IoMdCloseCircle className='cursor-pointer' size={16} color="#FFF" onClick={() => handleUnselectGenre(genre)} />
+                    </li>
+                  ))}
+                </ul>
+                <select
+                  name="Genres"
+                  id="Genres"
+                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                  onChange={handleSelectGenre}
+                >
+                  <option value="" disabled selected>Selecione os Gêneros</option>
+                  {genres.filter(genre => !selectedGenres.includes(genre)).map(genre => (
+                    <option value={genre.id}>{genre.name}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            <div className="w-full">
+              <div className="mb-5">
+                <label
                   htmlFor="Synopsis"
                   className="mb-3 block text-base font-medium text-[#07074D]"
                 >
@@ -87,7 +187,7 @@ function CreateMovie() {
                 <textarea
                   name="Synopsis"
                   id="Synopsis"
-                  placeholder="Ex: Lorem ipsum!"
+                  placeholder="Ex: https://www.youtube.com/watch?v=dQw4w9WgXcQ"
                   required
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                 />
@@ -141,10 +241,40 @@ function CreateMovie() {
                   type="number"
                   name="Duration"
                   id="Duration"
-                  placeholder="Ex: https://cinemais.com.br/logo.png"
+                  placeholder="Ex: 112"
                   required
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                 />
+              </div>
+            </div>
+            <div className="w-full">
+              <div className="mb-5">
+                <label
+                  htmlFor="Casts"
+                  className="mb-3 block text-base font-medium text-[#07074D]"
+                >
+                  Atores
+                </label>
+                <ul className="flex flex-row flex-wrap items-center gap-2 mb-2">
+                  {selectedCasts.map(cast => (
+                    <li className="flex flex-row items-center gap-1 bg-rose-800 px-2 py-1 rounded text-white">
+                      <img className="h-12 w-auto rounded" src={cast.picture} alt="Foto" />
+                      {cast.name}
+                      <IoMdCloseCircle className='cursor-pointer' size={16} color="#FFF" onClick={() => handleUnselectCast(cast)} />
+                    </li>
+                  ))}
+                </ul>
+                <select
+                  name="Casts"
+                  id="Casts"
+                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                  onChange={handleSelectCast}
+                >
+                  <option value="" disabled selected>Selecione os Atores</option>
+                  {casts.filter(cast => !selectedCasts.includes(cast)).map(cast => (
+                    <option value={cast.id}>{cast.name}</option>
+                  ))}
+                </select>
               </div>
             </div>
             <footer className="flex flex-row items-center justify-center gap-2">

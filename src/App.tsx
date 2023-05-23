@@ -13,6 +13,10 @@ import Region from "./pages/Region/Region";
 import CreateRegion from "./pages/Region/CreateRegion";
 import CreateMovie from "./pages/Movie/CreateMovie";
 import Movie from "./pages/Movie/Movie";
+import CreateGenre from "./pages/Genre/CreateGenre";
+import Genre from "./pages/Genre/Genre";
+import CreateCast from "./pages/Cast/CreateCast";
+import Cast from "./pages/Cast/Cast";
 
 function App() {
   return (
@@ -30,6 +34,10 @@ function App() {
         <Route path="region" element={<Region />} />
         <Route path="movie/create" element={<CreateMovie />} />
         <Route path="movie" element={<Movie />} />
+        <Route path="genre/create" element={<CreateGenre />} />
+        <Route path="genre" element={<Genre />} />
+        <Route path="cast/create" element={<CreateCast />} />
+        <Route path="cast" element={<Cast />} />
       </Route>
       {/* <Route path="*" element={<NotFound />} /> */}
     </Routes>

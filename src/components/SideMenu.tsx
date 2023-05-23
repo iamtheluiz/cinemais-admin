@@ -49,6 +49,14 @@ const SideMenu: React.FC = () => {
           <BiCameraMovie size={24} />
           <span className="ml-2">Filmes</span>
         </SideMenuItem>
+        <SideMenuItem to="/genre">
+          <BiCameraMovie size={24} />
+          <span className="ml-2">Gêneros</span>
+        </SideMenuItem>
+        <SideMenuItem to="/cast">
+          <BiCameraMovie size={24} />
+          <span className="ml-2">Atores</span>
+        </SideMenuItem>
         <SideMenuItem to="/cine">
           <BiCameraMovie size={24} />
           <span className="ml-2">Cinemas</span>
