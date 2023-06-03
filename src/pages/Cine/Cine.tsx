@@ -6,7 +6,7 @@ import { MdChevronLeft, MdChevronRight, MdDelete, MdEdit } from "react-icons/md"
 
 import { useAuth } from "../../contexts/AuthContext"
 import { api } from "../../services/api"
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 function Cine() {
@@ -137,6 +137,9 @@ function Cine() {
                     <a href="#delete" onClick={() => handleDeleteCine(cine)}>
                       <MdDelete size={24} />
                     </a>
+                    <Link to={`/cine/${cine.id}`}>
+                      <MdDelete size={24} />
+                    </Link>
                   </div>
                 </td>
               </tr>

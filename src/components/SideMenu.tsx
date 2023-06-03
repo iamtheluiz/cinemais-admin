@@ -1,7 +1,8 @@
 import { ReactNode } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import { BiCameraMovie } from "react-icons/bi";
+import { BiCameraMovie, BiListUl, BiMoviePlay } from "react-icons/bi";
+import { BsFillPersonLinesFill } from "react-icons/bs";
 import { GiPopcorn } from "react-icons/gi";
 import { TiHome } from "react-icons/ti";
 import { FaCity, FaUserCircle, FaMap } from "react-icons/fa";
@@ -46,15 +47,15 @@ const SideMenu: React.FC = () => {
           <span className="ml-2">Usuários</span>
         </SideMenuItem>
         <SideMenuItem to="/movie">
-          <BiCameraMovie size={24} />
+          <BiMoviePlay size={24} />
           <span className="ml-2">Filmes</span>
         </SideMenuItem>
         <SideMenuItem to="/genre">
-          <BiCameraMovie size={24} />
+          <BiListUl size={24} />
           <span className="ml-2">Gêneros</span>
         </SideMenuItem>
         <SideMenuItem to="/cast">
-          <BiCameraMovie size={24} />
+          <BsFillPersonLinesFill size={24} />
           <span className="ml-2">Atores</span>
         </SideMenuItem>
         <SideMenuItem to="/cine">

@@ -122,7 +122,7 @@ function Movie() {
               <tr className="hover:bg-gray-50" key={movie.id}>
                 <td className="px-6 py-4">{movie.name}</td>
                 <td className="px-6 py-4">
-                  <img className="w-16 h-auto rounded" src={movie.cover} alt="Cover" />
+                  <img className="w-48 h-auto rounded" src={movie.cover} alt="Cover" />
                 </td>
                 <td className="px-6 py-4">{movie.synopsis}</td>
                 <td className="px-6 py-4">{movie.genres.map((genre: any) => (

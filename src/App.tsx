@@ -17,6 +17,8 @@ import CreateGenre from "./pages/Genre/CreateGenre";
 import Genre from "./pages/Genre/Genre";
 import CreateCast from "./pages/Cast/CreateCast";
 import Cast from "./pages/Cast/Cast";
+import CineManagement from "./pages/Cine/CineManagement";
+import CreateSession from "./pages/Cine/CreateSession";
 
 function App() {
   return (
@@ -27,6 +29,8 @@ function App() {
         <Route path="user/create" element={<CreateUser />} />
         <Route path="user" element={<User />} />
         <Route path="cine/create" element={<CreateCine />} />
+        <Route path="cine/:id/session/create" element={<CreateSession />} />
+        <Route path="cine/:id" element={<CineManagement />} />
         <Route path="cine" element={<Cine />} />
         <Route path="city/create" element={<CreateCity />} />
         <Route path="city" element={<City />} />
