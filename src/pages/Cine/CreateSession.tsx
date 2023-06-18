@@ -9,36 +9,39 @@ import { api } from "../../services/api"
 function CreateSession() {
   const { token } = useAuth()
   const navigate = useNavigate();
+
   const params = useParams();
+  const [movies, setMovies] = useState<{ id: number, name: string }[]>([])
 
-  const [cities, setCities] = useState<{ id: number, name: string }[]>([])
-
-  // Map Position
   useEffect(() => {
-    getCities();
+    getMovies();
   }, [])
 
-  async function getCities() {
-    const { data } = await api.get('/city', {
+  async function getMovies() {
+    const { data } = await api.get('/movie', {
       headers: {
         Authorization: token
       }
     })
 
-    setCities(data.data)
+    setMovies(data.data)
   }
 
   async function handleSubmit(event: any) {
     event.preventDefault();
 
-    const name = event.target.elements["Name"].value;
-    const logo = event.target.elements["Logo"].value;
-    const cityId = event.target.elements["CityId"].value;
+    const room = event.target.elements["room"].value;
+    const startDate = event.target.elements["startDate"].value;
+    const endDate = event.target.elements["endDate"].value;
+    const movieId = event.target.elements["movie"].value;
+    const cineId = parseInt(params.id!);
 
-    const response = await api.post('/cine', {
-      name,
-      logo,
-      cityId: parseInt(cityId)
+    const response = await api.post(`/session`, {
+      room,
+      startDate,
+      endDate,
+      movieId: parseInt(movieId),
+      cineId
     }, {
       headers: {
         Authorization: token
@@ -49,15 +52,15 @@ function CreateSession() {
       Swal.fire({
         icon: 'success',
         title: 'Sucesso!',
-        html: `Cinema ${name} criado!`
+        html: `Sessão criada!`
       })
 
-      navigate('/cine')
+      navigate(`/cine/${cineId}`)
     } else {
       Swal.fire({
         icon: 'error',
         title: 'Erro!',
-        html: `Não foi possível criar o cinema ${name}.`
+        html: `Não foi possível criar a sessão.`
       })
     }
   }
@@ -73,15 +76,15 @@ function CreateSession() {
             <div className="w-full">
               <div className="mb-5">
                 <label
-                  htmlFor="Room"
+                  htmlFor="room"
                   className="mb-3 block text-base font-medium text-[#07074D]"
                 >
                   Sala
                 </label>
                 <input
                   type="text"
-                  name="Room"
-                  id="Room"
+                  name="room"
+                  id="room"
                   placeholder="Ex: 1"
                   required
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
@@ -91,16 +94,15 @@ function CreateSession() {
             <div className="w-full">
               <div className="mb-5">
                 <label
-                  htmlFor="Room"
+                  htmlFor="startDate"
                   className="mb-3 block text-base font-medium text-[#07074D]"
                 >
                   Data de Início
                 </label>
                 <input
-                  type="text"
-                  name="Room"
-                  id="Room"
-                  placeholder="Ex: 1"
+                  type="datetime-local"
+                  name="startDate"
+                  id="startDate"
                   required
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                 />
@@ -109,19 +111,38 @@ function CreateSession() {
             <div className="w-full">
               <div className="mb-5">
                 <label
-                  htmlFor="Room"
+                  htmlFor="endDate"
                   className="mb-3 block text-base font-medium text-[#07074D]"
                 >
-                  Data de Início
+                  Data de Fim
                 </label>
                 <input
-                  type="text"
-                  name="Room"
-                  id="Room"
-                  placeholder="Ex: 1"
+                  type="datetime-local"
+                  name="endDate"
+                  id="endDate"
                   required
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                 />
+              </div>
+            </div>
+            <div className="w-full">
+              <div className="mb-5">
+                <label
+                  htmlFor="movie"
+                  className="mb-3 block text-base font-medium text-[#07074D]"
+                >
+                  Filme
+                </label>
+                <select
+                  name="movie"
+                  id="movie"
+                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                >
+                  <option value="" disabled selected>Selecione o Filme</option>
+                  {movies.map(movie => (
+                    <option key={movie.id} value={movie.id}>{movie.name}</option>
+                  ))}
+                </select>
               </div>
             </div>
             <footer className="flex flex-row items-center justify-center gap-2">

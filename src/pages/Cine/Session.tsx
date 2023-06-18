@@ -53,7 +53,13 @@ function Session() {
       </div>
       <DatePicker selected={selectedDate} onChange={(date) => setSelectedDate(date as Date)} />
       <div className="overflow-hidden rounded-lg border border-gray-200 shadow-md">
-        
+        {session.length === 0 && (
+          <div className="flex flex-row items-center justify-center">
+            <h1 className="font-bold text-3xl justify-center items-center">
+              Não há sessões para esta data
+            </h1>
+          </div>
+        )}
         {JSON.stringify(session)}
       </div>
     </>

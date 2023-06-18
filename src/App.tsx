@@ -19,11 +19,12 @@ import CreateCast from "./pages/Cast/CreateCast";
 import Cast from "./pages/Cast/Cast";
 import CineManagement from "./pages/Cine/CineManagement";
 import CreateSession from "./pages/Cine/CreateSession";
+import Index from "./pages/Index";
 
 function App() {
   return (
     <Routes>
-      <Route index path="/login" element={<Login />} />
+      <Route path="/login" element={<Login />} />
       <Route path="/" element={<RestrictedRoute />}>
         <Route path="home" element={<Home />} />
         <Route path="user/create" element={<CreateUser />} />
@@ -43,6 +44,7 @@ function App() {
         <Route path="cast/create" element={<CreateCast />} />
         <Route path="cast" element={<Cast />} />
       </Route>
+      <Route index path="/" element={<Index />} />
       {/* <Route path="*" element={<NotFound />} /> */}
     </Routes>
   )
