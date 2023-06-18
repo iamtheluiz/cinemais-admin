@@ -1,6 +1,6 @@
 import { FormEvent, useState } from "react";
 import { GiPopcorn } from "react-icons/gi";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2'
 
 import { useAuth } from "../contexts/AuthContext";
@@ -41,8 +41,7 @@ function Login() {
     <div className="flex flex-col items-center justify-center min-h-screen bg-rose-800 p-4" style={{
       backgroundImage: "url(https://img.freepik.com/premium-vector/cinema-pattern-seamless-background-with-symbols-cinema-films-production-vector-cinema-production-film-camera-entertainment-background-illustration_80590-13282.jpg)",
       backgroundRepeat: 'repeat',
-      backgroundBlendMode: 'darken',
-      backgroundPosition: '50% 50%'
+      backgroundBlendMode: 'darken'
     }}>
       <section id="login" className="max-w-md w-full flex flex-col justify-center">
         <h1 className="flex font-bold text-center text-white text-3xl mb-5 justify-center items-center">
@@ -81,12 +80,12 @@ function Login() {
         <div className="py-5">
           <div className="grid grid-cols-2 gap-1">
             <div className="text-center sm:text-left whitespace-nowrap">
-              <button className="transition duration-200 mx-5 px-5 py-4 cursor-pointer font-normal text-sm rounded-lg text-gray-200 hover:bg-gray-400 focus:outline-none focus:bg-gray-100 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 ring-inset">
+              <Link to="/" className="transition duration-200 mx-5 px-5 py-4 cursor-pointer font-normal text-sm rounded-lg text-gray-200 hover:bg-gray-400 focus:outline-none focus:bg-gray-100 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 ring-inset">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-4 h-4 inline-block align-text-top">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                 </svg>
                 <span className="inline-block ml-1">Retornar para tela inicial</span>
-              </button>
+              </Link>
             </div>
           </div>
         </div>
