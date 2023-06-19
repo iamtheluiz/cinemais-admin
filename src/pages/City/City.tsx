@@ -16,7 +16,7 @@ function City() {
   const [pageCount, setPageCount] = useState(1)
   const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
-  const { token } = useAuth();
+  const { token, role } = useAuth();
 
   const pageSize = 10;
 
@@ -87,12 +87,14 @@ function City() {
         <h1 className="font-bold text-3xl justify-center items-center">
           Cidades
         </h1>
-        <button
-          className="rounded group flex h-10 cursor-pointer items-center truncate py-4 px-6 bg-amber-500 text-white outline-none hover:bg-amber-600 active:bg-amber-700"
-          onClick={() => navigate('/city/create')}
-        >
-          Criar
-        </button>
+        {role === 'admin' && (
+          <button
+            className="rounded group flex h-10 cursor-pointer items-center truncate py-4 px-6 bg-amber-500 text-white outline-none hover:bg-amber-600 active:bg-amber-700"
+            onClick={() => navigate('/city/create')}
+          >
+            Criar
+          </button>
+        )}
       </div>
       <div className="overflow-hidden rounded-lg border border-gray-200 shadow-md">
         <table className="w-full border-collapse bg-white text-left text-sm text-gray-500">
@@ -141,14 +143,16 @@ function City() {
                   </span>
                 </td>
                 <td className="px-6 py-4">
-                  <div className="flex justify-end gap-4">
-                    <a x-data="{ tooltip: 'Edite' }" href="#">
-                      <MdEdit size={24} />
-                    </a>
-                    <a href="#delete" onClick={() => handleDeleteCity(city)}>
-                      <MdDelete size={24} />
-                    </a>
-                  </div>
+                  {role === 'Admin' && (
+                    <div className="flex justify-end gap-4">
+                      <a x-data="{ tooltip: 'Edite' }" href="#">
+                        <MdEdit size={24} />
+                      </a>
+                      <a href="#delete" onClick={() => handleDeleteCity(city)}>
+                        <MdDelete size={24} />
+                      </a>
+                    </div>
+                  )}
                 </td>
               </tr>
             ))}

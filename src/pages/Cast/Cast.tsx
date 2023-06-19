@@ -16,7 +16,7 @@ function Cast() {
   const [pageCount, setPageCount] = useState(1)
   const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
-  const { token } = useAuth();
+  const { token, role } = useAuth();
 
   const pageSize = 10;
 
@@ -87,12 +87,14 @@ function Cast() {
         <h1 className="font-bold text-3xl justify-center items-center">
           Atores
         </h1>
-        <button
-          className="rounded group flex h-10 cursor-pointer items-center truncate py-4 px-6 bg-amber-500 text-white outline-none hover:bg-amber-600 active:bg-amber-700"
-          onClick={() => navigate('/cast/create')}
-        >
-          Criar
-        </button>
+        {role === 'Admin' && (
+          <button
+            className="rounded group flex h-10 cursor-pointer items-center truncate py-4 px-6 bg-amber-500 text-white outline-none hover:bg-amber-600 active:bg-amber-700"
+            onClick={() => navigate('/cast/create')}
+          >
+            Criar
+          </button>
+        )}
       </div>
       <div className="overflow-hidden rounded-lg border border-gray-200 shadow-md">
         <table className="w-full border-collapse bg-white text-left text-sm text-gray-500">
@@ -125,14 +127,16 @@ function Cast() {
                 </td>
                 <td className="px-6 py-4">{cast.bio}</td>
                 <td className="px-6 py-4">
-                  <div className="flex justify-end gap-4">
-                    <a x-data="{ tooltip: 'Edite' }" href="#">
-                      <MdEdit size={24} />
-                    </a>
-                    <a href="#delete" onClick={() => handleDeleteCast(cast)}>
-                      <MdDelete size={24} />
-                    </a>
-                  </div>
+                  {role === 'Admin' && (
+                    <div className="flex justify-end gap-4">
+                      <a x-data="{ tooltip: 'Edite' }" href="#">
+                        <MdEdit size={24} />
+                      </a>
+                      <a href="#delete" onClick={() => handleDeleteCast(cast)}>
+                        <MdDelete size={24} />
+                      </a>
+                    </div>
+                  )}
                 </td>
               </tr>
             ))}
@@ -145,20 +149,20 @@ function Cast() {
             breakLabel="..."
             nextLabel={<button
               className="page-link relative block py-1.5 px-1.5 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
-              ><MdChevronRight size={24} /></button>}
+            ><MdChevronRight size={24} /></button>}
             onPageChange={handlePageClick}
             pageRangeDisplayed={5}
             pageCount={pageCount}
             previousLabel={<button
               className="page-link relative block py-1.5 px-1.5 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
-              ><MdChevronLeft size={24} /></button>}
+            ><MdChevronLeft size={24} /></button>}
             pageLabelBuilder={(page) => <a
               className={`page-link relative block py-1.5 px-3 rounded border-0 outline-none transition-all duration-300 rounded focus:shadow-none ${page === currentPage ? "bg-rose-800 text-white hover:text-white hover:bg-rose-900" : "bg-transparent text-gray-800 hover:text-gray-800 hover:bg-gray-200"}`}
               href={`?page=${page}`}>{page}</a>}
             renderOnZeroPageCount={null}
             containerClassName="flex list-style-none"
           />
-          </nav>
+        </nav>
       </div>
     </>
   )

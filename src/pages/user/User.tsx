@@ -16,7 +16,7 @@ function User() {
   const [pageCount, setPageCount] = useState(1)
   const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
-  const { token } = useAuth();
+  const { token, role } = useAuth();
 
   const pageSize = 10;
 
@@ -87,12 +87,14 @@ function User() {
         <h1 className="font-bold text-3xl justify-center items-center">
           Usuários
         </h1>
-        <button
-          className="rounded group flex h-10 cursor-pointer items-center truncate py-4 px-6 bg-amber-500 text-white outline-none hover:bg-amber-600 active:bg-amber-700"
-          onClick={() => navigate('/user/create')}
-        >
-          Criar
-        </button>
+        {role === 'admin' && (
+          <button
+            className="rounded group flex h-10 cursor-pointer items-center truncate py-4 px-6 bg-amber-500 text-white outline-none hover:bg-amber-600 active:bg-amber-700"
+            onClick={() => navigate('/user/create')}
+          >
+            Criar
+          </button>
+        )}
       </div>
       <div className="overflow-hidden rounded-lg border border-gray-200 shadow-md">
         <table className="w-full border-collapse bg-white text-left text-sm text-gray-500">
@@ -142,14 +144,16 @@ function User() {
                   </span>
                 </td>
                 <td className="px-6 py-4">
-                  <div className="flex justify-end gap-4">
-                    <a x-data="{ tooltip: 'Edite' }" href="#">
-                      <MdEdit size={24} />
-                    </a>
-                    <a href="#delete" onClick={() => handleDeleteUser(user)}>
-                      <MdDelete size={24} />
-                    </a>
-                  </div>
+                  {role === 'Admin' && (
+                    <div className="flex justify-end gap-4">
+                      <a x-data="{ tooltip: 'Edite' }" href="#">
+                        <MdEdit size={24} />
+                      </a>
+                      <a href="#delete" onClick={() => handleDeleteUser(user)}>
+                        <MdDelete size={24} />
+                      </a>
+                    </div>
+                  )}
                 </td>
               </tr>
             ))}
@@ -158,40 +162,23 @@ function User() {
       </div>
       <div className="flex justify-end mt-4">
         <nav aria-label="Page navigation example">
-        <ReactPaginate
-          breakLabel="..."
-          nextLabel={<button
-            className="page-link relative block py-1.5 px-1.5 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
+          <ReactPaginate
+            breakLabel="..."
+            nextLabel={<button
+              className="page-link relative block py-1.5 px-1.5 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
             ><MdChevronRight size={24} /></button>}
-          onPageChange={handlePageClick}
-          pageRangeDisplayed={5}
-          pageCount={pageCount}
-          previousLabel={<button
-            className="page-link relative block py-1.5 px-1.5 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
+            onPageChange={handlePageClick}
+            pageRangeDisplayed={5}
+            pageCount={pageCount}
+            previousLabel={<button
+              className="page-link relative block py-1.5 px-1.5 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
             ><MdChevronLeft size={24} /></button>}
-          pageLabelBuilder={(page) => <a
-            className={`page-link relative block py-1.5 px-3 rounded border-0 outline-none transition-all duration-300 rounded focus:shadow-none ${page === currentPage ? "bg-rose-800 text-white hover:text-white hover:bg-rose-900" : "bg-transparent text-gray-800 hover:text-gray-800 hover:bg-gray-200"}`}
-            href={`?page=${page}`}>{page}</a>}
-          renderOnZeroPageCount={null}
-          containerClassName="flex list-style-none"
-        />
-          {/* <ul className="flex list-style-none">
-            <li className="page-item"><a
-              className="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
-              href="#"><MdChevronLeft size={24} /></a></li>
-            <li className="page-item"><a
-              className="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
-              href="#">1</a></li>
-            <li className="page-item active"><a
-              className="page-link relative block py-1.5 px-3 rounded border-0 bg-rose-800 outline-none transition-all duration-300 rounded text-white hover:text-white hover:bg-rose-900 shadow-md focus:shadow-md"
-              href="#">2 <span className="visually-hidden"></span></a></li>
-            <li className="page-item"><a
-              className="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
-              href="#">3</a></li>
-            <li className="page-item"><a
-              className="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
-              href="#"><MdChevronRight size={24} /></a></li>
-          </ul> */}
+            pageLabelBuilder={(page) => <a
+              className={`page-link relative block py-1.5 px-3 rounded border-0 outline-none transition-all duration-300 rounded focus:shadow-none ${page === currentPage ? "bg-rose-800 text-white hover:text-white hover:bg-rose-900" : "bg-transparent text-gray-800 hover:text-gray-800 hover:bg-gray-200"}`}
+              href={`?page=${page}`}>{page}</a>}
+            renderOnZeroPageCount={null}
+            containerClassName="flex list-style-none"
+          />
         </nav>
       </div>
     </>

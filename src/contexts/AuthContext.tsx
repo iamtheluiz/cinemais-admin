@@ -6,6 +6,8 @@ import { api } from "../services/api";
 interface AuthContextProps {
   token: string | null
   setToken: (token: string) => void
+  role: string | null
+  setRole: (role: string) => void
   login: (email: string, password: string) => Promise<boolean>
   logout: () => void
 }
@@ -18,12 +20,17 @@ const AuthContext = createContext<AuthContextProps | null>(null);
 
 const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [token, setToken] = useState<string | null>(null)
+  const [role, setRole] = useState<string | null>(null)
 
   useEffect(() => {
     const storedToken = sessionStorage.getItem("@cinemais/token")
+    const storedRole = sessionStorage.getItem("@cinemais/role")
 
     if (storedToken) {
       setToken(storedToken)
+    }
+    if (storedRole) {
+      setRole(storedRole)
     }
   }, [])
 
@@ -35,10 +42,13 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       })
 
       const token = response.data.data.token
+      const role = response.data.data.role
 
       setToken(token)
+      setRole(role)
 
       sessionStorage.setItem('@cinemais/token', token)
+      sessionStorage.setItem('@cinemais/role', role)
       
       Swal.fire({
         icon: 'success',
@@ -60,14 +70,18 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   function logout() {
     sessionStorage.removeItem('@cinemais/token')
+    sessionStorage.removeItem('@cinemais/role')
 
     setToken(null)
+    setRole(null)
   }
 
   return (
     <AuthContext.Provider value={{
       token,
       setToken,
+      role,
+      setRole,
       login,
       logout
     }}>

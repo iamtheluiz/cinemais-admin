@@ -1,4 +1,6 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import { useAuth } from "./contexts/AuthContext";
 
 import Login from "./pages/Login";
 import Home from "./pages/Home";
@@ -21,27 +23,98 @@ import CineManagement from "./pages/Cine/CineManagement";
 import CreateSession from "./pages/Cine/CreateSession";
 import Index from "./pages/Index";
 
+function AdminRoute({ returnTo, children }: { returnTo: string, children: React.ReactNode }) {
+  const { role } = useAuth();
+
+  if (role !== 'Admin') {
+    Swal.fire({
+      icon: 'error',
+      title: 'Erro!',
+      html: `Você não tem permissão para acessar essa página.`
+    })
+    return <Navigate to={returnTo} />
+  }
+
+  return <>{children}</>;
+}
+
 function App() {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/" element={<RestrictedRoute />}>
         <Route path="home" element={<Home />} />
-        <Route path="user/create" element={<CreateUser />} />
+        <Route
+          path="user/create"
+          element={
+            <AdminRoute returnTo="/user">
+              <CreateUser />
+            </AdminRoute>
+          }
+        />
         <Route path="user" element={<User />} />
-        <Route path="cine/create" element={<CreateCine />} />
-        <Route path="cine/:id/session/create" element={<CreateSession />} />
+        <Route
+          path="cine/create"
+          element={
+            <AdminRoute returnTo="/cine">
+              <CreateCine />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="cine/:id/session/create"
+          element={
+            <AdminRoute returnTo="/cine">
+              <CreateSession />
+            </AdminRoute>
+          }
+        />
         <Route path="cine/:id" element={<CineManagement />} />
         <Route path="cine" element={<Cine />} />
-        <Route path="city/create" element={<CreateCity />} />
+        <Route
+          path="city/create"
+          element={
+            <AdminRoute returnTo="/city">
+              <CreateCity />
+            </AdminRoute>
+          }
+        />
         <Route path="city" element={<City />} />
-        <Route path="region/create" element={<CreateRegion />} />
+        <Route
+          path="region/create"
+          element={
+            <AdminRoute returnTo="/region">
+              <CreateRegion />
+            </AdminRoute>
+          }
+        />
         <Route path="region" element={<Region />} />
-        <Route path="movie/create" element={<CreateMovie />} />
+        <Route
+          path="movie/create"
+          element={
+            <AdminRoute returnTo="/movie">
+              <CreateMovie />
+            </AdminRoute>
+          }
+        />
         <Route path="movie" element={<Movie />} />
-        <Route path="genre/create" element={<CreateGenre />} />
+        <Route
+          path="genre/create"
+          element={
+            <AdminRoute returnTo="/genre">
+              <CreateGenre />
+            </AdminRoute>
+          }
+        />
         <Route path="genre" element={<Genre />} />
-        <Route path="cast/create" element={<CreateCast />} />
+        <Route
+          path="cast/create"
+          element={
+            <AdminRoute returnTo="/cast">
+              <CreateCast />
+            </AdminRoute>
+          }
+        />
         <Route path="cast" element={<Cast />} />
       </Route>
       <Route index path="/" element={<Index />} />
