@@ -36,7 +36,7 @@ function CineManagement() {
         <h1 className="font-bold text-3xl justify-center items-center">
           {cine.name}
         </h1>
-        {role === 'admin' && (
+        {role === 'Admin' && (
           <button
             className="rounded group flex h-10 cursor-pointer items-center truncate py-4 px-6 bg-amber-500 text-white outline-none hover:bg-amber-600 active:bg-amber-700"
             onClick={() => navigate(`/cine/${params.id}/session/create`)}
