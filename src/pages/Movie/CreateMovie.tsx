@@ -11,6 +11,9 @@ function CreateMovie() {
   const { token } = useAuth()
   const navigate = useNavigate();
 
+  const [trailer, setTrailer] = useState<string>("")
+  const [cover, setCover] = useState<string>("")
+
   const [genres, setGenres] = useState<{ id: number, name: string }[]>([])
   const [selectedGenres, setSelectedGenres] = useState<{ id: number, name: string }[]>([])
 
@@ -187,7 +190,7 @@ function CreateMovie() {
                 <textarea
                   name="Synopsis"
                   id="Synopsis"
-                  placeholder="Ex: https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                  placeholder="Ex: Uma breve descrição sobre o filme"
                   required
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                 />
@@ -205,10 +208,18 @@ function CreateMovie() {
                   type="text"
                   name="Trailer"
                   id="Trailer"
-                  placeholder="Ex: Cinemais"
+                  placeholder="Ex: https://www.youtube.com/watch?v=dQw4w9WgXcQ"
                   required
+                  onChange={event => setTrailer(event.target.value)}
+                  value={trailer}
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                 />
+                {trailer !== "" && (
+                  <div className="h-80 relative flex justify-center items-center border-2 border-dashed mt-1 p-2 rounded-lg">
+                    <p className="w-full text-gray-500 text-center">Insira um vídeo <br/>embutido válido!</p>
+                    <iframe className="absolute w-full h-80 rounded-lg" src={trailer} />
+                  </div>
+                )}
               </div>
             </div>
             <div className="w-full">
@@ -225,6 +236,8 @@ function CreateMovie() {
                   id="Cover"
                   placeholder="Ex: https://cinemais.com.br/logo.png"
                   required
+                  onChange={event => setCover(event.target.value)}
+                  value={cover}
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                 />
               </div>
