@@ -7,9 +7,11 @@ import { MdChevronLeft, MdChevronRight, MdDelete, MdEdit } from "react-icons/md"
 import { useAuth } from "../../contexts/AuthContext"
 import { api } from "../../services/api"
 import { useNavigate } from "react-router-dom";
+import Spinner from "../../components/Spinner";
 
 
 function User() {
+  const [isLoading, setIsLoading] = useState(false)
   const [users, setUsers] = useState([])
   const [pageCount, setPageCount] = useState(1)
   const [currentPage, setCurrentPage] = useState(1);
@@ -25,6 +27,7 @@ function User() {
   }, [token, currentPage])
 
   async function getUsers() {
+    setIsLoading(true)
     const { data } = await api.get('/user', {
       headers: {
         Authorization: token
@@ -37,6 +40,7 @@ function User() {
 
     setPageCount(data.pagination.totalCount / pageSize)
     setUsers(data.data)
+    setIsLoading(false)
   }
 
   const handlePageClick = (event: any) => {
@@ -103,12 +107,19 @@ function User() {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100 border-t border-gray-100">
-            {users.length === 0 && (
+            {isLoading && (
+              <tr>
+                <td colSpan={6} className="px-6 py-4 font-medium text-gray-900">
+                  <Spinner />
+                </td>
+              </tr>
+            )}
+            {(!isLoading && users.length === 0) && (
               <tr>
                 <td colSpan={6} className="px-6 py-4 font-medium text-gray-900">Não existem usuários cadastrados!</td>
               </tr>
             )}
-            {users.map((user: any) => (
+            {!isLoading && users.map((user: any) => (
               <tr className="hover:bg-gray-50" key={user.id}>
                 <th className="flex gap-3 px-6 py-4 font-normal text-gray-900">
                   <div className="flex items-center justify-center h-10 w-10 rounded-full bg-gray-600">

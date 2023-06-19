@@ -2,14 +2,16 @@ import { useEffect, useState } from "react"
 import Swal from 'sweetalert2'
 import ReactPaginate from 'react-paginate';
 
-import { MdChevronLeft, MdChevronRight, MdDelete, MdEdit } from "react-icons/md";
+import { MdChevronLeft, MdChevronRight, MdDelete, MdEdit, MdCalendarMonth } from "react-icons/md";
 
 import { useAuth } from "../../contexts/AuthContext"
 import { api } from "../../services/api"
 import { Link, useNavigate } from "react-router-dom";
+import Spinner from "../../components/Spinner";
 
 
 function Cine() {
+  const [isLoading, setIsLoading] = useState(false)
   const [cines, setCines] = useState([])
   const [pageCount, setPageCount] = useState(1)
   const [currentPage, setCurrentPage] = useState(1);
@@ -25,6 +27,7 @@ function Cine() {
   }, [token, currentPage])
 
   async function getCines() {
+    setIsLoading(true)
     const { data } = await api.get('/cine', {
       headers: {
         Authorization: token
@@ -37,6 +40,7 @@ function Cine() {
 
     setPageCount(data.pagination.totalCount / pageSize)
     setCines(data.data)
+    setIsLoading(false)
   }
 
   const handlePageClick = (event: any) => {
@@ -102,12 +106,19 @@ function Cine() {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100 border-t border-gray-100">
-            {cines.length === 0 && (
+            {isLoading && (
+              <tr>
+                <td colSpan={6} className="px-6 py-4 font-medium text-gray-900">
+                  <Spinner />
+                </td>
+              </tr>
+            )}
+            {(!isLoading && cines.length === 0) && (
               <tr>
                 <td colSpan={6} className="px-6 py-4 font-medium text-gray-900">Não existem cinemas cadastrados!</td>
               </tr>
             )}
-            {cines.map((cine: any) => (
+            {!isLoading && cines.map((cine: any) => (
               <tr className="hover:bg-gray-50" key={cine.id}>
                 <td className="px-6 py-4">{cine.name}</td>
                 <td className="px-6 py-4">
@@ -138,7 +149,7 @@ function Cine() {
                       <MdDelete size={24} />
                     </a>
                     <Link to={`/cine/${cine.id}`}>
-                      <MdDelete size={24} />
+                      <MdCalendarMonth size={24} />
                     </Link>
                   </div>
                 </td>
@@ -153,20 +164,20 @@ function Cine() {
             breakLabel="..."
             nextLabel={<button
               className="page-link relative block py-1.5 px-1.5 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
-              ><MdChevronRight size={24} /></button>}
+            ><MdChevronRight size={24} /></button>}
             onPageChange={handlePageClick}
             pageRangeDisplayed={5}
             pageCount={pageCount}
             previousLabel={<button
               className="page-link relative block py-1.5 px-1.5 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
-              ><MdChevronLeft size={24} /></button>}
+            ><MdChevronLeft size={24} /></button>}
             pageLabelBuilder={(page) => <a
               className={`page-link relative block py-1.5 px-3 rounded border-0 outline-none transition-all duration-300 rounded focus:shadow-none ${page === currentPage ? "bg-rose-800 text-white hover:text-white hover:bg-rose-900" : "bg-transparent text-gray-800 hover:text-gray-800 hover:bg-gray-200"}`}
               href={`?page=${page}`}>{page}</a>}
             renderOnZeroPageCount={null}
             containerClassName="flex list-style-none"
           />
-          </nav>
+        </nav>
       </div>
     </>
   )

@@ -61,23 +61,6 @@ function CineManagement() {
       </div>
       <div className="rounded-lg border border-gray-200 shadow-md p-4" style={{ height: "auto" }}>
         <SessionBoard cineId={cine.id} />
-        {/* {openMovies.length === 0 && (
-            <div className="flex flex-row items-center justify-center">
-              <h1 className="font-bold text-3xl justify-center items-center">
-                Não há sessões para esta data
-              </h1>
-            </div>
-          )}
-          {openMovies.length > 0 && (
-            <>
-              <h2 className="text-xl font-bold">Em Cartaz</h2>
-              <div className="flex flex-row flex-wrap items-center gap-2 py-4">
-                {openMovies.map((session: any) => (
-                  <img src={`${session.movie.cover}`} className="rounded" style={{ width: 'auto', height: 260 }} />
-                ))}
-              </div>
-            </>
-          )} */}
       </div>
     </>
   )
