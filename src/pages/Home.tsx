@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { useAuth } from "../contexts/AuthContext"
 import { api } from "../services/api"
 import { Link } from "react-router-dom"
+import Spinner from "../components/Spinner"
 
 function Home() {
   const [dashboard, setDashboard] = useState<any>()
@@ -35,43 +36,43 @@ function Home() {
               <Link to="/user">
                 <div className="mx-auto flex w-full flex-col gap-y-4 p-4 bg-emerald-500 rounded">
                   <dt className="text-base leading-7 text-gray-100">Usuários</dt>
-                  <dd className="order-first text-3xl font-semibold tracking-tight text-white sm:text-5xl">{dashboard?.userCount}</dd>
+                  <dd className="order-first text-3xl font-semibold tracking-tight text-white sm:text-5xl">{dashboard?.userCount || <Spinner />}</dd>
                 </div>
               </Link>
               <Link to="/movie">
                 <div className="mx-auto flex w-full flex-col gap-y-4 p-4 bg-sky-500 rounded">
                   <dt className="text-base leading-7 text-gray-100">Filmes</dt>
-                  <dd className="order-first text-3xl font-semibold tracking-tight text-white sm:text-5xl">{dashboard?.movieCount}</dd>
+                  <dd className="order-first text-3xl font-semibold tracking-tight text-white sm:text-5xl">{dashboard?.movieCount || <Spinner />}</dd>
                 </div>
               </Link>
               <Link to="/cine">
                 <div className="mx-auto flex w-full flex-col gap-y-4 p-4 bg-violet-500 rounded">
                   <dt className="text-base leading-7 text-gray-100">Cinemas</dt>
-                  <dd className="order-first text-3xl font-semibold tracking-tight text-white sm:text-5xl">{dashboard?.cineCount}</dd>
+                  <dd className="order-first text-3xl font-semibold tracking-tight text-white sm:text-5xl">{dashboard?.cineCount || <Spinner />}</dd>
                 </div>
               </Link>
               <Link to="/genre">
                 <div className="mx-auto flex w-full flex-col gap-y-4 p-4 bg-orange-500 rounded">
                   <dt className="text-base leading-7 text-gray-100">Gêneros</dt>
-                  <dd className="order-first text-3xl font-semibold tracking-tight text-white sm:text-5xl">{dashboard?.genreCount}</dd>
+                  <dd className="order-first text-3xl font-semibold tracking-tight text-white sm:text-5xl">{dashboard?.genreCount || <Spinner />}</dd>
                 </div>
               </Link>
               <Link to="/cast">
                 <div className="mx-auto flex w-full flex-col gap-y-4 p-4 bg-purple-500 rounded">
                   <dt className="text-base leading-7 text-gray-100">Atores</dt>
-                  <dd className="order-first text-3xl font-semibold tracking-tight text-white sm:text-5xl">{dashboard?.castCount}</dd>
+                  <dd className="order-first text-3xl font-semibold tracking-tight text-white sm:text-5xl">{dashboard?.castCount || <Spinner />}</dd>
                 </div>
               </Link>
               <Link to="/city">
                 <div className="mx-auto flex w-full flex-col gap-y-4 p-4 bg-fuchsia-500 rounded">
                   <dt className="text-base leading-7 text-gray-100">Cidades</dt>
-                  <dd className="order-first text-3xl font-semibold tracking-tight text-white sm:text-5xl">{dashboard?.cityCount}</dd>
+                  <dd className="order-first text-3xl font-semibold tracking-tight text-white sm:text-5xl">{dashboard?.cityCount || <Spinner />}</dd>
                 </div>
               </Link>
               <Link to="/region">
                 <div className="mx-auto flex w-full flex-col gap-y-4 p-4 bg-rose-500 rounded">
                   <dt className="text-base leading-7 text-gray-100">Regiões</dt>
-                  <dd className="order-first text-3xl font-semibold tracking-tight text-white sm:text-5xl">{dashboard?.regionCount}</dd>
+                  <dd className="order-first text-3xl font-semibold tracking-tight text-white sm:text-5xl">{dashboard?.regionCount || <Spinner />}</dd>
                 </div>
               </Link>
             </dl>
