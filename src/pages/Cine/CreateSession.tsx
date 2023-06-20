@@ -7,15 +7,34 @@ import { api } from "../../services/api"
 
 
 function CreateSession() {
+  const currentDate = new Date()
+  currentDate.setMinutes(currentDate.getMinutes() - currentDate.getTimezoneOffset())
+
   const { token } = useAuth()
   const navigate = useNavigate();
 
   const params = useParams();
-  const [movies, setMovies] = useState<{ id: number, name: string }[]>([])
+  const [movies, setMovies] = useState<{ id: number, name: string, duration: number }[]>([])
+
+  const [selectedMovie, setSelectedMovie] = useState<{ id: number, name: string, duration: number } | null>(null)
+  const [startDate, setStartDate] = useState<Date>(currentDate)
+  const [endDate, setEndDate] = useState<Date>(currentDate)
 
   useEffect(() => {
     getMovies();
   }, [])
+
+  useEffect(() => {
+    if (selectedMovie && startDate) {
+      console.log(selectedMovie.duration)
+      console.log(startDate)
+      const endDate = new Date(startDate.getTime() + selectedMovie.duration * 60000)
+      endDate.setMinutes(currentDate.getMinutes() - currentDate.getTimezoneOffset())
+
+      // @ts-ignore
+      document.querySelector('input[name="endDate"]').value = endDate.toISOString().slice(0, 16)
+    }
+  }, [selectedMovie, startDate]);
 
   async function getMovies() {
     const { data } = await api.get('/movie', {
@@ -64,6 +83,19 @@ function CreateSession() {
       })
     }
   }
+  
+  function handleChangeStartDate(event: any) {
+    console.log(event.target.value)
+    const startDate = new Date(event.target.value)
+
+    setStartDate(startDate)
+  }
+  function handleChangeEndDate(event: any) {
+    const endDate = new Date(event.target.value)
+
+    setEndDate(endDate)
+  }
+    
 
   return (
     <>
@@ -94,6 +126,28 @@ function CreateSession() {
             <div className="w-full">
               <div className="mb-5">
                 <label
+                  htmlFor="movie"
+                  className="mb-3 block text-base font-medium text-[#07074D]"
+                >
+                  Filme
+                </label>
+                <select
+                  name="movie"
+                  id="movie"
+                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                  value={selectedMovie?.id}
+                  onChange={event => setSelectedMovie(movies.find(movie => movie.id === parseInt(event.target.value)) || null)}
+                >
+                  <option value="" disabled selected>Selecione o Filme</option>
+                  {movies.map(movie => (
+                    <option key={movie.id} value={movie.id}>{movie.name}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            <div className="w-full">
+              <div className="mb-5">
+                <label
                   htmlFor="startDate"
                   className="mb-3 block text-base font-medium text-[#07074D]"
                 >
@@ -103,6 +157,8 @@ function CreateSession() {
                   type="datetime-local"
                   name="startDate"
                   id="startDate"
+                  defaultValue={startDate?.toISOString().slice(0, 16)}
+                  onChange={handleChangeStartDate}
                   required
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                 />
@@ -120,29 +176,11 @@ function CreateSession() {
                   type="datetime-local"
                   name="endDate"
                   id="endDate"
+                  defaultValue={endDate?.toISOString().slice(0, 16)}
+                  onChange={handleChangeEndDate}
                   required
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                 />
-              </div>
-            </div>
-            <div className="w-full">
-              <div className="mb-5">
-                <label
-                  htmlFor="movie"
-                  className="mb-3 block text-base font-medium text-[#07074D]"
-                >
-                  Filme
-                </label>
-                <select
-                  name="movie"
-                  id="movie"
-                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                >
-                  <option value="" disabled selected>Selecione o Filme</option>
-                  {movies.map(movie => (
-                    <option key={movie.id} value={movie.id}>{movie.name}</option>
-                  ))}
-                </select>
               </div>
             </div>
             <footer className="flex flex-row items-center justify-center gap-2">
