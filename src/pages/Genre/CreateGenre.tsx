@@ -13,9 +13,11 @@ function CreateGenre() {
     event.preventDefault();
 
     const name = event.target.elements["Name"].value;
+    const color = event.target.elements["Color"].value;
 
     const response = await api.post('/genre', {
-      name
+      name,
+      color
     }, {
       headers: {
         Authorization: token
@@ -62,6 +64,24 @@ function CreateGenre() {
                   placeholder="Ex: Terror"
                   required
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                />
+              </div>
+            </div>
+            <div className="w-full">
+              <div className="mb-5">
+                <label
+                  htmlFor="Color"
+                  className="mb-3 block text-base font-medium text-[#07074D]"
+                >
+                  Cor
+                </label>
+                <input
+                  type="color"
+                  name="Color"
+                  id="Color"
+                  placeholder="Ex: #000"
+                  required
+                  className="w-full h-12 rounded-md border border-[#e0e0e0] bg-white px-1 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                 />
               </div>
             </div>

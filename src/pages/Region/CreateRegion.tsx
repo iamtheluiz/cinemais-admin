@@ -66,7 +66,7 @@ function CreateRegion() {
     const response = await api.post('/region', {
       name,
       latitude: selectedPosition[0],
-      longitude: selectedPosition[0]
+      longitude: selectedPosition[1]
     }, {
       headers: {
         Authorization: token

@@ -93,7 +93,7 @@ function CreateCity() {
     const response = await api.post('/city', {
       name,
       latitude: selectedPosition[0],
-      longitude: selectedPosition[0],
+      longitude: selectedPosition[1],
       regions: selectedRegions
     }, {
       headers: {

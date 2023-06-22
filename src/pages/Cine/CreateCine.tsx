@@ -2,19 +2,56 @@ import Swal from 'sweetalert2'
 import { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
 
+import { Marker, MapContainer, TileLayer, useMapEvents, Popup } from "react-leaflet";
+
 import { useAuth } from "../../contexts/AuthContext"
 import { api } from "../../services/api"
 
+function LocationMarker({ selectedPosition, setSelectedPosition }: { selectedPosition: [number, number] | null, setSelectedPosition: (position: [number, number]) => void}) {
+  const map = useMapEvents({
+    click(event) {
+      const { lat, lng } = event.latlng;
+
+      setSelectedPosition([lat, lng]);
+    }
+  })
+
+  return selectedPosition === null ? null : (
+    <Marker position={{ lat: selectedPosition[0], lng: selectedPosition[1]}}>
+      <Popup>You are here</Popup>
+    </Marker>
+  )
+}
 
 function CreateCine() {
+  const [
+    initialPosition,
+    setInitialPosition
+  ] = useState<[number, number] | null>(null);
+  const [
+    selectedPosition,
+    setSelectedPosition
+  ] = useState<[number, number] | null>(null);
+
   const { token } = useAuth()
   const navigate = useNavigate();
 
   const [cities, setCities] = useState<{ id: number, name: string }[]>([])
 
-  // Map Position
   useEffect(() => {
     getCities();
+
+    // Map Position
+    navigator.geolocation.getCurrentPosition(
+      function (position) {
+        const { latitude, longitude } = position.coords;
+
+        setInitialPosition([latitude, longitude]);
+      },
+      () => {
+        setInitialPosition([-24.1819477, -46.7920167]);
+      }
+    )
   }, [])
 
   async function getCities() {
@@ -30,6 +67,15 @@ function CreateCine() {
   async function handleSubmit(event: any) {
     event.preventDefault();
 
+    if (selectedPosition === null) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Erro!',
+        html: `É obrigatório escolher uma posição no mapa!`
+      })
+      return;
+    }
+
     const name = event.target.elements["Name"].value;
     const logo = event.target.elements["Logo"].value;
     const cityId = event.target.elements["CityId"].value;
@@ -37,6 +83,8 @@ function CreateCine() {
     const response = await api.post('/cine', {
       name,
       logo,
+      latitude: selectedPosition[0],
+      longitude: selectedPosition[1],
       cityId: parseInt(cityId)
     }, {
       headers: {
@@ -103,6 +151,37 @@ function CreateCine() {
                   required
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                 />
+              </div>
+            </div>
+            <div className="w-full">
+              <div className="mb-5">
+                <label
+                  htmlFor="LastName"
+                  className="mb-3 block text-base font-medium text-[#07074D]"
+                >
+                  Localização
+                </label>
+                <div
+                  className="w-full rounded-md border border-[#e0e0e0] bg-white text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                >
+                  {(initialPosition !== null) && (
+                    <MapContainer
+                      center={{
+                        lat: initialPosition[0],
+                        lng: initialPosition[1],
+                      }}
+                      zoom={13}
+                      zoomControl={false}
+                      style={{ height: 300, borderRadius: "0.375rem" }}
+                    >
+                      <TileLayer
+                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                      />
+                      <LocationMarker selectedPosition={selectedPosition} setSelectedPosition={setSelectedPosition} />
+                    </MapContainer>
+                  )}
+                </div>
               </div>
             </div>
             <div className="w-full">
