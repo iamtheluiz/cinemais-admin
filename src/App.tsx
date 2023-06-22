@@ -5,8 +5,12 @@ import { useAuth } from "./contexts/AuthContext";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import RestrictedRoute from "./components/RestrictedRoute";
+// @ts-ignore
 import User from "./pages/User/User";
+// @ts-ignore
 import CreateUser from "./pages/User/CreateUser";
+// @ts-ignore
+import EditUser from "./pages/User/EditUser";
 import Cine from "./pages/Cine/Cine";
 import CreateCine from "./pages/Cine/CreateCine";
 import CreateCity from "./pages/City/CreateCity";
@@ -22,7 +26,6 @@ import Cast from "./pages/Cast/Cast";
 import CineManagement from "./pages/Cine/CineManagement";
 import CreateSession from "./pages/Cine/CreateSession";
 import Index from "./pages/Index";
-import EditUser from "./pages/User/EditUser";
 import EditGenre from "./pages/Genre/EditGenre";
 import EditRegion from "./pages/Region/EditRegion";
 import EditCity from "./pages/City/EditCity";
