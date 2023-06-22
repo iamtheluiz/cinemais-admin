@@ -64,19 +64,33 @@ function Index() {
           O projeto consiste em um sistema de gerenciamento de cinema, onde é possível cadastrar, editar e excluir filmes, salas, sessões e usuários.
         </p>
         <p className="text-gray-700 text-center">
-          O projeto foi desenvolvido utilizando as tecnologias ReactJS, NodeJS e MySQL.
+          O projeto foi desenvolvido utilizando as tecnologias ReactJS, NodeJS e SQLite.
         </p>
-        <p className="text-gray-700 text-center">
-          O projeto foi desenvolvido por:
-        </p>
-        <ul className="text-gray-700 text-center">
-          <li>Enzo Micael Silva Gaeta de Moraes</li>
-          <li>Jovanny Leite Marques da Silva</li>
-          <li>Lucas Galatro da Costa</li>
-          <li>Luiz Gustavo da Silva Vasconcellos</li>
-          <li>Vitor Santos Tardioli</li>
-          <li>Vitor Marques dos Anjos</li>
-        </ul>
+        <h1 className="flex font-bold text-center text-gray-700 text-2xl mt-5 mb-2 justify-center items-center">
+          Integrantes
+        </h1>
+        <div className="p-4 bg-white rounded-lg" id="stats" role="tabpanel" aria-labelledby="stats-tab">
+          <dl className="grid max-w-2xl grid-cols-2 gap-8 pb-4 mx-auto text-gray-900 sm:grid-cols-3">
+            <div className="flex flex-col items-center justify-center text-center">
+              <dd className="text-gray-500">Enzo Micael Silva Gaeta de Moraes</dd>
+            </div>
+            <div className="flex flex-col items-center justify-center text-center">
+              <dd className="text-gray-500">Jovanny Leite Marques da Silva</dd>
+            </div>
+            <div className="flex flex-col items-center justify-center text-center">
+              <dd className="text-gray-500">Lucas Galatro da Costa</dd>
+            </div>
+            <div className="flex flex-col items-center justify-center text-center">
+              <dd className="text-gray-500">Luiz Gustavo da Silva Vasconcellos</dd>
+            </div>
+            <div className="flex flex-col items-center justify-center text-center">
+              <dd className="text-gray-500">Vitor Santos Tardioli</dd>
+            </div>
+            <div className="flex flex-col items-center justify-center text-center">
+              <dd className="text-gray-500">Vitor Marques dos Anjos</dd>
+            </div>
+          </dl>
+        </div>
       </section>
       <span className="text-gray-100 mt-4">© Copyright 2023 - Todos os direitos reservados a Cinemais</span>
     </div>
