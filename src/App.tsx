@@ -26,9 +26,9 @@ import EditCity from "./pages/City/EditCity";
 import EditCast from "./pages/Cast/EditCast";
 import EditCine from "./pages/Cine/EditCine";
 
-import User from "./pages/User/User";
-import CreateUser from "./pages/User/CreateUser";
-import EditUser from "./pages/User/EditUser";
+import { User } from "./pages/User/User";
+import { CreateUser } from "./pages/User/CreateUser";
+import { EditUser } from "./pages/User/EditUser";
 
 function AdminRoute({ returnTo, children }: { returnTo: string, children: React.ReactNode }) {
   const { role } = useAuth();
