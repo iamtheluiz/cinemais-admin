@@ -5,12 +5,6 @@ import { useAuth } from "./contexts/AuthContext";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import RestrictedRoute from "./components/RestrictedRoute";
-// @ts-ignore
-import User from "./pages/User/User";
-// @ts-ignore
-import CreateUser from "./pages/User/CreateUser";
-// @ts-ignore
-import EditUser from "./pages/User/EditUser";
 import Cine from "./pages/Cine/Cine";
 import CreateCine from "./pages/Cine/CreateCine";
 import CreateCity from "./pages/City/CreateCity";
@@ -31,6 +25,10 @@ import EditRegion from "./pages/Region/EditRegion";
 import EditCity from "./pages/City/EditCity";
 import EditCast from "./pages/Cast/EditCast";
 import EditCine from "./pages/Cine/EditCine";
+
+import User from "./pages/User/User";
+import CreateUser from "./pages/User/CreateUser";
+import EditUser from "./pages/User/EditUser";
 
 function AdminRoute({ returnTo, children }: { returnTo: string, children: React.ReactNode }) {
   const { role } = useAuth();
