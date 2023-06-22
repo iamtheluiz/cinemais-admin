@@ -47,6 +47,10 @@ function Cine() {
     setCurrentPage(event.selected + 1);
   };
 
+  function handleEditCine(cine: any) {
+    navigate(`/cine/edit/${cine.id}`, { state: cine })
+  }
+
   async function handleDeleteCine(cine: any) {
     const result = await Swal.fire({
       title: `Você realmente deseja excluir o cinema ${cine.name}?`,
@@ -144,13 +148,13 @@ function Cine() {
                 </td>
                 <td className="px-6 py-4">
                   {role === 'Admin' && (
-                    <div className="flex justify-end gap-4">
-                      <a x-data="{ tooltip: 'Edite' }" href="#">
+                    <div className="flex justify-end gap-4">                      
+                      <button onClick={() => handleEditCine(cine)}>
                         <MdEdit size={24} />
-                      </a>
-                      <a href="#delete" onClick={() => handleDeleteCine(cine)}>
+                      </button>
+                      <button onClick={() => handleDeleteCine(cine)}>
                         <MdDelete size={24} />
-                      </a>
+                      </button>
                       <Link to={`/cine/${cine.id}`}>
                         <MdCalendarMonth size={24} />
                       </Link>

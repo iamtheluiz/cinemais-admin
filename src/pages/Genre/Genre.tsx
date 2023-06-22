@@ -47,6 +47,10 @@ function Genre() {
     setCurrentPage(event.selected + 1);
   };
 
+  function handleEditGenre(genre: any) {
+    navigate(`/genre/edit/${genre.id}`, { state: genre })
+  }
+
   async function handleDeleteGenre(genre: any) {
     const result = await Swal.fire({
       title: `Você realmente deseja excluir o gênero ${genre.name}?`,
@@ -127,12 +131,12 @@ function Genre() {
                 <td className="px-6 py-4">
                   {role === 'Admin' && (
                     <div className="flex justify-end gap-4">
-                      <a x-data="{ tooltip: 'Edite' }" href="#">
+                      <button onClick={() => handleEditGenre(genre)}>
                         <MdEdit size={24} />
-                      </a>
-                      <a href="#delete" onClick={() => handleDeleteGenre(genre)}>
+                      </button>
+                      <button onClick={() => handleDeleteGenre(genre)}>
                         <MdDelete size={24} />
-                      </a>
+                      </button>
                     </div>
                   )}
                 </td>

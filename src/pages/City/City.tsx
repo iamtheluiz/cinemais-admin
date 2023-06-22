@@ -47,6 +47,10 @@ function City() {
     setCurrentPage(event.selected + 1);
   };
 
+  function handleEditCity(city: any) {
+    navigate(`/city/edit/${city.id}`, { state: city })
+  }
+
   async function handleDeleteCity(city: any) {
     const result = await Swal.fire({
       title: `Você realmente deseja excluir a cidade ${city.name}?`,
@@ -145,12 +149,12 @@ function City() {
                 <td className="px-6 py-4">
                   {role === 'Admin' && (
                     <div className="flex justify-end gap-4">
-                      <a x-data="{ tooltip: 'Edite' }" href="#">
+                      <button onClick={() => handleEditCity(city)}>
                         <MdEdit size={24} />
-                      </a>
-                      <a href="#delete" onClick={() => handleDeleteCity(city)}>
+                      </button>
+                      <button onClick={() => handleDeleteCity(city)}>
                         <MdDelete size={24} />
-                      </a>
+                      </button>
                     </div>
                   )}
                 </td>

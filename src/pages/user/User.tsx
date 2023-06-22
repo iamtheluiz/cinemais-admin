@@ -47,6 +47,10 @@ function User() {
     setCurrentPage(event.selected + 1);
   };
 
+  function handleEditUser(user: any) {
+    navigate(`/user/edit/${user.id}`, { state: user })
+  }
+
   async function handleDeleteUser(user: any) {
     const result = await Swal.fire({
       title: `Você realmente deseja excluir o usuário ${user.email}?`,
@@ -146,12 +150,12 @@ function User() {
                 <td className="px-6 py-4">
                   {role === 'Admin' && (
                     <div className="flex justify-end gap-4">
-                      <a x-data="{ tooltip: 'Edite' }" href="#">
+                      <button onClick={() => handleEditUser(user)}>
                         <MdEdit size={24} />
-                      </a>
-                      <a href="#delete" onClick={() => handleDeleteUser(user)}>
+                      </button>
+                      <button onClick={() => handleDeleteUser(user)}>
                         <MdDelete size={24} />
-                      </a>
+                      </button>
                     </div>
                   )}
                 </td>

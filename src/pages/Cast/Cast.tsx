@@ -47,6 +47,10 @@ function Cast() {
     setCurrentPage(event.selected + 1);
   };
 
+  function handleEditCast(cast: any) {
+    navigate(`/cast/edit/${cast.id}`, { state: cast })
+  }
+
   async function handleDeleteCast(cast: any) {
     const result = await Swal.fire({
       title: `Você realmente deseja excluir o ator(a) ${cast.name}?`,
@@ -129,12 +133,12 @@ function Cast() {
                 <td className="px-6 py-4">
                   {role === 'Admin' && (
                     <div className="flex justify-end gap-4">
-                      <a x-data="{ tooltip: 'Edite' }" href="#">
+                      <button onClick={() => handleEditCast(cast)}>
                         <MdEdit size={24} />
-                      </a>
-                      <a href="#delete" onClick={() => handleDeleteCast(cast)}>
+                      </button>
+                      <button onClick={() => handleDeleteCast(cast)}>
                         <MdDelete size={24} />
-                      </a>
+                      </button>
                     </div>
                   )}
                 </td>

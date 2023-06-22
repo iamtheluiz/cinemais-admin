@@ -22,6 +22,12 @@ import Cast from "./pages/Cast/Cast";
 import CineManagement from "./pages/Cine/CineManagement";
 import CreateSession from "./pages/Cine/CreateSession";
 import Index from "./pages/Index";
+import EditUser from "./pages/User/EditUser";
+import EditGenre from "./pages/Genre/EditGenre";
+import EditRegion from "./pages/Region/EditRegion";
+import EditCity from "./pages/City/EditCity";
+import EditCast from "./pages/Cast/EditCast";
+import EditCine from "./pages/Cine/EditCine";
 
 function AdminRoute({ returnTo, children }: { returnTo: string, children: React.ReactNode }) {
   const { role } = useAuth();
@@ -52,12 +58,28 @@ function App() {
             </AdminRoute>
           }
         />
+        <Route
+          path="user/edit/:id"
+          element={
+            <AdminRoute returnTo="/user">
+              <EditUser />
+            </AdminRoute>
+          }
+        />
         <Route path="user" element={<User />} />
         <Route
           path="cine/create"
           element={
             <AdminRoute returnTo="/cine">
               <CreateCine />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="cine/edit/:id"
+          element={
+            <AdminRoute returnTo="/cine">
+              <EditCine />
             </AdminRoute>
           }
         />
@@ -79,12 +101,28 @@ function App() {
             </AdminRoute>
           }
         />
+        <Route
+          path="city/edit/:id"
+          element={
+            <AdminRoute returnTo="/city">
+              <EditCity />
+            </AdminRoute>
+          }
+        />
         <Route path="city" element={<City />} />
         <Route
           path="region/create"
           element={
             <AdminRoute returnTo="/region">
               <CreateRegion />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="region/edit/:id"
+          element={
+            <AdminRoute returnTo="/region">
+              <EditRegion />
             </AdminRoute>
           }
         />
@@ -106,12 +144,28 @@ function App() {
             </AdminRoute>
           }
         />
+        <Route
+          path="genre/edit/:id"
+          element={
+            <AdminRoute returnTo="/genre">
+              <EditGenre />
+            </AdminRoute>
+          }
+        />
         <Route path="genre" element={<Genre />} />
         <Route
           path="cast/create"
           element={
             <AdminRoute returnTo="/cast">
               <CreateCast />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="cast/edit/:id"
+          element={
+            <AdminRoute returnTo="/cast">
+              <EditCast />
             </AdminRoute>
           }
         />

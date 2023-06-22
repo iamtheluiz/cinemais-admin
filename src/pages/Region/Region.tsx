@@ -52,6 +52,10 @@ function Region() {
     setCurrentPage(event.selected + 1);
   };
 
+  function handleEditRegion(region: any) {
+    navigate(`/region/edit/${region.id}`, { state: region })
+  }
+
   async function handleDeleteRegion(region: any) {
     const result = await Swal.fire({
       title: `Você realmente deseja excluir a região ${region.name}?`,
@@ -150,12 +154,12 @@ function Region() {
                 <td className="px-6 py-4">
                   {role === 'Admin' && (
                     <div className="flex justify-end gap-4">
-                      <a x-data="{ tooltip: 'Edite' }" href="#">
+                      <button onClick={() => handleEditRegion(region)}>
                         <MdEdit size={24} />
-                      </a>
-                      <a href="#delete" onClick={() => handleDeleteRegion(region)}>
+                      </button>
+                      <button onClick={() => handleDeleteRegion(region)}>
                         <MdDelete size={24} />
-                      </a>
+                      </button>
                     </div>
                   )}
                 </td>
