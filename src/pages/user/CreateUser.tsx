@@ -9,7 +9,7 @@ import { useAuth } from "../../contexts/AuthContext"
 import { api } from "../../services/api"
 
 
-function CreateUser() {
+export function CreateUser() {
   const [users, setUsers] = useState([])
   const { token } = useAuth()
   const navigate = useNavigate();
@@ -233,5 +233,3 @@ function CreateUser() {
     </>
   )
 }
-
-export default CreateUser

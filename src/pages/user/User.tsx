@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import Spinner from "../../components/Spinner";
 
 
-function User() {
+export function User() {
   const [isLoading, setIsLoading] = useState(false)
   const [users, setUsers] = useState([])
   const [pageCount, setPageCount] = useState(1)
@@ -188,5 +188,3 @@ function User() {
     </>
   )
 }
-
-export default User

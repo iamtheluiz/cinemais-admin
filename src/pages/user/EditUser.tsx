@@ -5,7 +5,7 @@ import { useAuth } from "../../contexts/AuthContext"
 import { api } from "../../services/api"
 
 
-function EditUser() {
+export function EditUser() {
   const { token } = useAuth()
   const navigate = useNavigate();
 
@@ -219,5 +219,3 @@ function EditUser() {
     </>
   )
 }
-
-export default EditUser
