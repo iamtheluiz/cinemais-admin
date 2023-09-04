@@ -28,6 +28,9 @@ jobs:
       uses: SonarSource/sonarcloud-github-action@v2.0.0
       with:
         projectBaseDir: .
+        args: >
+          -Dsonar.organization=iamtheluiz
+          -Dsonar.projectKey=cinemais-admin
       env:
         # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
