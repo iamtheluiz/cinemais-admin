@@ -58,13 +58,13 @@ function Index() {
           </div>
         </h1>
         <p className="text-gray-700 text-center">
-          O Cinemais é um projeto desenvolvido para a Unidade Curricular de "Modelos, métodos e técnicas da engenharia de software" do curso de Engenharia da Computação da Universidade São Judas Tadeu - Campus Unimonte.
+          O Cinemais é um projeto de conclusão de curso do curso de Engenharia da Computação da Universidade São Judas Tadeu - Campus Unimonte.
         </p>
         <p className="text-gray-700 text-center">
-          O projeto consiste em um sistema de gerenciamento de cinema, onde é possível cadastrar, editar e excluir filmes, salas, sessões e usuários.
+          Este projeto envolve um sistema de gerenciamento de cinema, que possibilita o cadastro, edição e exclusão de informações relacionadas a filmes, salas, sessões e usuários.
         </p>
         <p className="text-gray-700 text-center">
-          O projeto foi desenvolvido utilizando as tecnologias ReactJS, NodeJS e SQLite.
+          Para sua implementação, foram empregadas as tecnologias ReactJS, NodeJS e SQLite.
         </p>
         <h1 className="flex font-bold text-center text-gray-700 text-2xl mt-5 mb-2 justify-center items-center">
           Integrantes
