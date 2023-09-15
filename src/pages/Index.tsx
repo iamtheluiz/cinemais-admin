@@ -83,12 +83,6 @@ function Index() {
             <div className="flex flex-col items-center justify-center text-center">
               <dd className="text-gray-500">Luiz Gustavo da Silva Vasconcellos</dd>
             </div>
-            <div className="flex flex-col items-center justify-center text-center">
-              <dd className="text-gray-500">Vitor Santos Tardioli</dd>
-            </div>
-            <div className="flex flex-col items-center justify-center text-center">
-              <dd className="text-gray-500">Vitor Marques dos Anjos</dd>
-            </div>
           </dl>
         </div>
       </section>
