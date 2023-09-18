@@ -23,6 +23,8 @@ function LocationMarker({ selectedPosition, setSelectedPosition }: { selectedPos
 }
 
 function EditRegion() {
+  document.title = 'Cinemais - Editar Região'
+
   const { state } = useLocation()
   const navigate = useNavigate();
 

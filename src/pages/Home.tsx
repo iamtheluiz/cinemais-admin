@@ -5,6 +5,8 @@ import { Link } from "react-router-dom"
 import Spinner from "../components/Spinner"
 
 function Home() {
+  document.title = 'Cinemais - Home'
+
   const [dashboard, setDashboard] = useState<any>()
   const { token } = useAuth()
 

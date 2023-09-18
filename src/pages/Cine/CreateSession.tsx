@@ -7,6 +7,8 @@ import { api } from "../../services/api"
 
 
 function CreateSession() {
+  document.title = 'Cinemais - Cadastrar Sessão'
+
   const currentDate = new Date()
   currentDate.setMinutes(currentDate.getMinutes() - currentDate.getTimezoneOffset())
 

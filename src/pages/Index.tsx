@@ -1,17 +1,17 @@
 import { GiPopcorn } from "react-icons/gi";
 import { FaAngleDown } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-import BannerImage from '../assets/banner.png'
 import { Button } from "@/components/ui/button";
 
+import BannerImage from '../assets/banner.png'
 import AvatarEnzo from '../assets/profiles/enzo.jpg'
 import AvatarJovanny from '../assets/profiles/jovanny.jpg'
 import AvatarLucas from '../assets/profiles/lucas.jpg'
 import AvatarLuiz from '../assets/profiles/luiz.jpg'
 
 function Index() {
-  const navigate = useNavigate()
+  document.title = 'Cinemais - Início'
 
   const members = [
     {
@@ -40,8 +40,9 @@ function Index() {
     }
   ]
 
-  function handleLogin() {
-    navigate("/login")
+  function handleMoveToProjectInfo() {
+    const projectInfo = document.getElementById('sobre')
+    projectInfo?.scrollIntoView({ behavior: 'smooth' })
   }
 
   return (
@@ -62,18 +63,28 @@ function Index() {
           <p className="text-muted font-medium">
             Gerencie cinemas e sessões de filmes de<br />modo prático e digital!
           </p>
-          <div className="w-full flex flex-row justify-center gap-2">
-            <Link to="/login" className="w-full">
-              <Button className="text-foreground w-full">
-                <span className="inline-block mr-2">Entrar</span>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-4 h-4 inline-block">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </Button>
-            </Link>
-            <Button variant="secondary" className="w-full">
-              <span className="inline-block mr-2">Sobre o projeto</span>
-              <FaAngleDown size={20} />
+          <div className="w-full flex flex-col justify-center gap-2">
+            <div className="w-full flex flex-row justify-center gap-2">
+              <Link to="/login" className="w-full">
+                <Button className="text-foreground w-full">
+                  <span className="inline-block mr-2">Entrar</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-4 h-4 inline-block">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </Button>
+              </Link>
+              <Link to="/login" className="w-full">
+                <Button variant="secondary" className="w-full">
+                  <span className="inline-block mr-2">Área de Administração</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-4 h-4 inline-block">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </Button>
+              </Link>
+            </div>
+            <Button variant="secondary" className="w-full" onClick={handleMoveToProjectInfo}>
+              <span className="inline-block mr-2">Sobre o Cinemais</span>
+              <FaAngleDown size={16} />
             </Button>
           </div>
         </div>

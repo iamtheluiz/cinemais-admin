@@ -23,6 +23,8 @@ function LocationMarker({ selectedPosition, setSelectedPosition }: { selectedPos
 }
 
 function CreateRegion() {
+  document.title = 'Cinemais - Cadastrar Região'
+
   const [
     initialPosition,
     setInitialPosition

@@ -11,6 +11,8 @@ import Spinner from "../../components/Spinner";
 
 
 function Genre() {
+  document.title = 'Cinemais - Genêros'
+
   const [isLoading, setIsLoading] = useState(false)
   const [genres, setGenres] = useState([])
   const [pageCount, setPageCount] = useState(1)

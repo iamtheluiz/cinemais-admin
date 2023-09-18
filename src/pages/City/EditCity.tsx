@@ -24,6 +24,8 @@ function LocationMarker({ selectedPosition, setSelectedPosition }: { selectedPos
 }
 
 function EditCity() {
+  document.title = 'Cinemais - Editar Cidade'
+
   const { state } = useLocation()
   const navigate = useNavigate();
 

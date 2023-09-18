@@ -6,6 +6,8 @@ import { api } from "../../services/api"
 
 
 function EditGenre() {
+  document.title = 'Cinemais - Editar Gênero'
+
   const { token } = useAuth()
   const navigate = useNavigate();
 

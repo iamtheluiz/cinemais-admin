@@ -6,6 +6,8 @@ import { api } from "../../services/api"
 
 
 export function EditUser() {
+  document.title = 'Cinemais - Editar Usuário'
+
   const { token } = useAuth()
   const navigate = useNavigate();
 
