@@ -24,6 +24,8 @@ function LocationMarker({ selectedPosition, setSelectedPosition }: { selectedPos
 }
 
 function CreateCity() {
+  document.title = 'Cinemais - Cadastrar Cidade'
+
   const [
     initialPosition,
     setInitialPosition

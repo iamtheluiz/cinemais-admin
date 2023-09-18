@@ -8,6 +8,8 @@ import SessionBoard from "../../components/SessionBoard/Index";
 
 
 function CineManagement() {
+  document.title = 'Cinemais - Gerenciar Sessões'
+
   const [cine, setCine] = useState<null | { name: string, id: number }>(null);
   const { token, role } = useAuth();
 

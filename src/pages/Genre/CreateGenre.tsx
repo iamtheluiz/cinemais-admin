@@ -6,6 +6,8 @@ import { api } from "../../services/api"
 
 
 function CreateGenre() {
+  document.title = 'Cinemais - Criar Gênero'
+
   const { token } = useAuth()
   const navigate = useNavigate();
 

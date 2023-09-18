@@ -11,6 +11,8 @@ import Spinner from "../../components/Spinner";
 
 
 function Cine() {
+  document.title = 'Cinemais | Cinemas'
+
   const [isLoading, setIsLoading] = useState(false)
   const [cines, setCines] = useState([])
   const [pageCount, setPageCount] = useState(1)

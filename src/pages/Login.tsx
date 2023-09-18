@@ -6,6 +6,8 @@ import Swal from 'sweetalert2'
 import { useAuth } from "../contexts/AuthContext";
 
 function Login() {
+  document.title = 'Cinemais - Login'
+
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 

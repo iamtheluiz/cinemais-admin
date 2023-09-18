@@ -11,6 +11,8 @@ import Spinner from "../../components/Spinner";
 
 
 function Cast() {
+  document.title = 'Cinemais - Atores'
+
   const [isLoading, setIsLoading] = useState(false)
   const [casts, setCasts] = useState([])
   const [pageCount, setPageCount] = useState(1)

@@ -6,6 +6,8 @@ import { api } from "../../services/api"
 
 
 function CreateCast() {
+  document.title = 'Cinemais - Cadastrar Ator'
+
   const { token } = useAuth()
   const navigate = useNavigate();
 

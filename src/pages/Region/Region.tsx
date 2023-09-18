@@ -11,6 +11,8 @@ import Spinner from "../../components/Spinner";
 
 
 function Region() {
+  document.title = 'Cinemais - Regiões'
+
   const [isLoading, setIsLoading] = useState(false)
   const [regions, setRegions] = useState([])
   const [pageCount, setPageCount] = useState(1)

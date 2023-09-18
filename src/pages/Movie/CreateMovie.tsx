@@ -8,6 +8,8 @@ import { IoMdCloseCircle } from 'react-icons/io';
 
 
 function CreateMovie() {
+  document.title = 'Cinemais - Cadastrar Filme'
+
   const { token } = useAuth()
   const navigate = useNavigate();
 

@@ -11,6 +11,8 @@ import Spinner from "../../components/Spinner";
 
 
 function City() {
+  document.title = 'Cinemais - Cidades'
+
   const [isLoading, setIsLoading] = useState(false)
   const [cities, setCities] = useState([])
   const [pageCount, setPageCount] = useState(1)

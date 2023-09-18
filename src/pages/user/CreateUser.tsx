@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react"
 import Swal from 'sweetalert2'
-import ReactPaginate from 'react-paginate';
 import { useNavigate } from "react-router-dom";
-
-import { MdChevronLeft, MdChevronRight, MdDelete, MdEdit } from "react-icons/md";
 
 import { useAuth } from "../../contexts/AuthContext"
 import { api } from "../../services/api"
 
 
 export function CreateUser() {
+  document.title = 'Cinemais - Cadastrar Usuário'
+
   const [users, setUsers] = useState([])
   const { token } = useAuth()
   const navigate = useNavigate();
@@ -24,8 +23,6 @@ export function CreateUser() {
   // from an API endpoint with useEffect and useState)
   const endOffset = itemOffset + itemsPerPage;
   console.log(`Loading items from ${itemOffset} to ${endOffset}`);
-  const currentUsers = users.slice(itemOffset, endOffset);
-  const pageCount = Math.ceil(users.length / itemsPerPage);
 
   useEffect(() => {
     if (token) {

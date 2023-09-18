@@ -6,6 +6,7 @@ import { api } from "../../services/api"
 
 
 function EditCast() {
+  document.title = 'Cinemais - Editar Ator'
 
   const { token } = useAuth()
   const navigate = useNavigate();

@@ -11,6 +11,8 @@ import Spinner from "../../components/Spinner";
 
 
 export function User() {
+  document.title = 'Cinemais - Usuários'
+
   const [isLoading, setIsLoading] = useState(false)
   const [users, setUsers] = useState([])
   const [pageCount, setPageCount] = useState(1)
