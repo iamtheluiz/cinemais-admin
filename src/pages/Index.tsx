@@ -3,9 +3,42 @@ import { FaAngleDown } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 
 import BannerImage from '../assets/banner.png'
+import { Button } from "@/components/ui/button";
+
+import AvatarEnzo from '../assets/profiles/enzo.jpg'
+import AvatarJovanny from '../assets/profiles/jovanny.jpg'
+import AvatarLucas from '../assets/profiles/lucas.jpg'
+import AvatarLuiz from '../assets/profiles/luiz.jpg'
 
 function Index() {
   const navigate = useNavigate()
+
+  const members = [
+    {
+      name: "Enzo Micael Silva Gaeta de Moraes",
+      role: "DBA",
+      ra: "519115051",
+      avatar: AvatarEnzo
+    },
+    {
+      name: "Jovanny Leite Marques da Silva",
+      role: "PO e Desenvolvedor",
+      ra: "51912766",
+      avatar: AvatarJovanny
+    },
+    {
+      name: "Lucas Galatro da Costa",
+      role: "QA",
+      ra: "51912782",
+      avatar: AvatarLucas
+    },
+    {
+      name: "Luiz Gustavo da Silva Vasconcellos",
+      role: "Desenvolvedor",
+      ra: "51913451",
+      avatar: AvatarLuiz
+    }
+  ]
 
   function handleLogin() {
     navigate("/login")
@@ -26,20 +59,22 @@ function Index() {
             Cinemais
             <span className="text-amber-400">+</span>
           </h1>
-          <p className="text-gray-100 text-xl font-medium text-left drop-shadow-lg">
+          <p className="text-muted font-medium">
             Gerencie cinemas e sessões de filmes de<br />modo prático e digital!
           </p>
           <div className="w-full flex flex-row justify-center gap-2">
-            <Link to="/login" type="button" className="transition duration-200 bg-amber-400 hover:bg-amber-600 focus:bg-amber-700 focus:shadow-sm focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 text-white w-full py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block">
-              <span className="inline-block mr-2">Entrar</span>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-4 h-4 inline-block">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
+            <Link to="/login" className="w-full">
+              <Button className="text-foreground w-full">
+                <span className="inline-block mr-2">Entrar</span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-4 h-4 inline-block">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </Button>
             </Link>
-            <button type="button" className="flex justify-center transition duration-200 bg-green-400 hover:bg-green-600 focus:bg-green-700 focus:shadow-sm focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 text-white w-full py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block">
+            <Button variant="secondary" className="w-full">
               <span className="inline-block mr-2">Sobre o projeto</span>
               <FaAngleDown size={20} />
-            </button>
+            </Button>
           </div>
         </div>
         <div className="w-full flex justify-center items-center">
@@ -49,13 +84,6 @@ function Index() {
       <section id="sobre" className="bg-white min-w-screen w-full flex flex-col justify-center rounded-lg p-4">
         <h1 className="flex font-bold text-center text-gray-700 text-2xl mb-5 justify-center items-center">
           Sobre o projeto
-          <div className="ml-2 flex justify-center items-center text-white bg-rose-800 p-1 rounded">
-            <span className="text-amber-400">
-              <GiPopcorn />
-            </span>
-            Cinemais
-            <span className="text-amber-400">+</span>
-          </div>
         </h1>
         <p className="text-gray-700 text-center">
           O Cinemais é um projeto de conclusão de curso do curso de Engenharia da Computação da Universidade São Judas Tadeu - Campus Unimonte.
@@ -69,21 +97,16 @@ function Index() {
         <h1 className="flex font-bold text-center text-gray-700 text-2xl mt-5 mb-2 justify-center items-center">
           Integrantes
         </h1>
-        <div className="p-4 bg-white rounded-lg" id="stats" role="tabpanel" aria-labelledby="stats-tab">
-          <dl className="grid max-w-2xl grid-cols-2 gap-8 pb-4 mx-auto text-gray-900 sm:grid-cols-3">
-            <div className="flex flex-col items-center justify-center text-center">
-              <dd className="text-gray-500">Enzo Micael Silva Gaeta de Moraes</dd>
+
+        <div className="flex flex-row justify-center gap-4 flex-wrap">
+          {members.map((member, index) => (
+            <div key={index} className="flex flex-col items-center gap-2 sm:w-64 text-center">
+              <img src={member.avatar} alt="Avatar" className="rounded-full w-32 h-32" />
+              <span className="text-gray-700 font-bold">{member.name}</span>
+              <span className="text-gray-700">{member.role}</span>
+              <span className="text-gray-700">RA: {member.ra}</span>
             </div>
-            <div className="flex flex-col items-center justify-center text-center">
-              <dd className="text-gray-500">Jovanny Leite Marques da Silva</dd>
-            </div>
-            <div className="flex flex-col items-center justify-center text-center">
-              <dd className="text-gray-500">Lucas Galatro da Costa</dd>
-            </div>
-            <div className="flex flex-col items-center justify-center text-center">
-              <dd className="text-gray-500">Luiz Gustavo da Silva Vasconcellos</dd>
-            </div>
-          </dl>
+          ))}
         </div>
       </section>
       <span className="text-gray-100 mt-4">© Copyright 2023 - Todos os direitos reservados a Cinemais</span>
